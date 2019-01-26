@@ -1,6 +1,6 @@
 =Bitcoin Command Line=
 ==Tools==
-First, you will need to install the bitcion client on your machine.  Directions for doing so can be found for the different operating systems in the links below.  Once you have validated that you have appropriately installed bitcoin, please proceed to the directions for configuring your installation to work with the test net before syncing. <br /><br />
+First, you will need to install the bitcoin client on your machine.  Directions for doing so can be found for the different operating systems in the links below.  Once you have validated that you have appropriately installed bitcoin, please proceed to the directions for configuring your installation to work with the test net before syncing. <br /><br />
 
 MacOS<br />
 https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-osx.md<br /><br />
