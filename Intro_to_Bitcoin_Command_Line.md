@@ -6,8 +6,8 @@ First, you will need to install the bitcoin client on your machine.  Directions 
 The commands in this guide should be executed in a Terminal application.
 The built-in one is located in `/Applications/Utilities/Terminal.app`.
 
-Preparation
------------
+#### Preparation
+
 Install the macOS command line tools:
 
 `xcode-select --install`
@@ -16,8 +16,7 @@ When the popup appears, click `Install`.
 
 Then install [Homebrew](https://brew.sh).
 
-Dependencies
-----------------------
+#### Dependencies
 
 `brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python qt libevent qrencode`
 
@@ -27,8 +26,7 @@ If you want to build the disk image with `make deploy` (.dmg / optional), you ne
 
 `brew install librsvg`
 
-Build Bitcoin Core
-------------------------
+#### Build Bitcoin Core
 
 1. Clone the Bitcoin Core source code:
 
@@ -54,23 +52,23 @@ Build Bitcoin Core
         make deploy
 
 ### Linux
-Linux Instructions
+
 The following instructions describe installing Bitcoin Core on Linux systems.
 
 Ubuntu 16.04
 *Instructions for Bitcoin Core 0.14.2 and Higher
 
-If you use Ubuntu Desktop, click the Ubuntu swirl icon to start the Dash and type “term” into the input box. Choose any one of the terminals listed:
-
-Dash term
+If you use Ubuntu Desktop, click the Ubuntu swirl icon to start the Dash and type “term” into the input box. Choose any one of the terminals listed.
 
 Alternatively, access a console or terminal emulator using another method, such as SSH on Ubuntu Server or a terminal launcher in an alternative desktop environment.
 
 Type the following line to add the Bitcoin Personal Package Archive (PPA) to your system:
 
-sudo apt-add-repository ppa:bitcoin/bitcoin
+`sudo apt-add-repository ppa:bitcoin/bitcoin`
+
 You will be prompted for your user password. Provide it to continue. Afterwards, the following text will be displayed:
 
+```BASH
 Stable Channel of bitcoin-qt and bitcoind for Ubuntu, and their
 dependencies
 
@@ -80,8 +78,11 @@ limit trust in Launchpad/the PPA owner.
 No longer supports precise, due to its ancient gcc and Boost versions.
 More info: https://launchpad.net/~bitcoin/+archive/ubuntu/bitcoin
 Press [ENTER] to continue or ctrl-c to cancel adding it
+```
+
 Press enter to continue. The following text (with some variations) will be displayed and you will be returned to the command line prompt:
 
+```BASH
 gpg: keyring `/tmp/tmpixuqu73x/secring.gpg' created
 gpg: keyring `/tmp/tmpixuqu73x/pubring.gpg' created
 gpg: requesting key 8842CE5E from hkp server keyserver.ubuntu.com
@@ -91,23 +92,21 @@ gpg: no ultimately trusted keys found
 gpg: Total number processed: 1
 gpg:               imported: 1  (RSA: 1)
 OK
+```
+
 Type the following line to get the most recent list of packages:
 
+```BASH
 sudo apt-get update
+```
 A large number of lines will be displayed as different update files are downloaded. This step may take several minutes on a slow Internet connection.
 
-To continue, choose one of the following options
+Install the Bitcoin Core daemon (bitcoind), which is useful for programmers and advanced users, type the following line and proceed to the Bitcoin Core Daemon section below:
 
-To install the Bitcoin Core Graphical User Interface (GUI), type the following line and proceed to the Bitcoin Core GUI section below:
-
- sudo apt-get install bitcoin-qt
-To install the Bitcoin Core daemon (bitcoind), which is useful for programmers and advanced users, type the following line and proceed to the Bitcoin Core Daemon section below:
-
- sudo apt-get install bitcoind
-To install both the GUI and the daemon, type the following line and read both the GUI instructions and the daemon instructions. Note that you can’t run both the GUI and the daemon at the same time using the same configuration directory.
-
- sudo apt-get install bitcoin-qt bitcoind
-After choosing what packages to install, you will be asked whether you want to proceed. Press enter to continue.
+```BASH
+sudo apt-get install bitcoind
+```
+If there are no errors during installation proceed to configuration to configure the installation to operate on the Bitcoin testnet and then test the installation.
 
 ## Configuration
 
