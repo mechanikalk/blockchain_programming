@@ -1,5 +1,5 @@
-#Bitcoin Command Line
-##Tools
+# Bitcoin Command Line
+## Tools
 First, you will need to install the bitcoin client on your machine.  Directions for doing so can be found for the different operating systems in the links below.  Once you have validated that you have appropriately installed bitcoin, please proceed to the directions for configuring your installation to work with the test net before syncing. <br><br>
 
 MacOS<br>
@@ -9,7 +9,7 @@ https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88
 Windows (not recommended):<br>
 https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-windows.md<br><br>
 
-##Configuration
+## Configuration
 
 Operating System	Default bitcoin datadir	Typical path to configuration file
 Windows	 %APPDATA%\Bitcoin\	C:\Users\username\AppData\Roaming\Bitcoin\bitcoin.conf
