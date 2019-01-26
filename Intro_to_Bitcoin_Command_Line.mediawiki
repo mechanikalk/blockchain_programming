@@ -1,5 +1,5 @@
-#Bitcoin Command Line
-Tools
+=Bitcoin Command Line=
+==Tools==
 
 MacOS
 https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-osx.md
@@ -8,7 +8,7 @@ https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88
 Windows (not recommended)
 https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-windows.md
 
-Configure Pruned mode
+==Configuration==
 
 Operating System	Default bitcoin datadir	Typical path to configuration file
 Windows	 %APPDATA%\Bitcoin\	C:\Users\username\AppData\Roaming\Bitcoin\bitcoin.conf
