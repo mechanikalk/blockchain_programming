@@ -2,12 +2,112 @@
 ## Tools
 First, you will need to install the bitcoin client on your machine.  Directions for doing so can be found for the different operating systems in the links below.  Once you have validated that you have appropriately installed bitcoin, please proceed to the directions for configuring your installation to work with the test net before syncing. <br><br>
 
-MacOS<br>
-https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-osx.md<br><br>
-Linux<br>
-https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-unix.md<br><br>
-Windows (not recommended):<br>
-https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-windows.md<br><br>
+### MacOS
+The commands in this guide should be executed in a Terminal application.
+The built-in one is located in `/Applications/Utilities/Terminal.app`.
+
+Preparation
+-----------
+Install the macOS command line tools:
+
+`xcode-select --install`
+
+When the popup appears, click `Install`.
+
+Then install [Homebrew](https://brew.sh).
+
+Dependencies
+----------------------
+
+`brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python qt libevent qrencode`
+
+See [dependencies.md](dependencies.md) for a complete overview.
+
+If you want to build the disk image with `make deploy` (.dmg / optional), you need RSVG:
+
+`brew install librsvg`
+
+Build Bitcoin Core
+------------------------
+
+1. Clone the Bitcoin Core source code:
+
+        git clone https://github.com/bitcoin/bitcoin
+        cd bitcoin
+
+2.  Build Bitcoin Core:
+
+    Configure and build the headless Bitcoin Core binaries as well as the GUI (if Qt is found).
+
+    You can disable the GUI build by passing `--without-gui` to configure.
+
+        ./autogen.sh
+        ./configure
+        make
+
+3.  It is recommended to build and run the unit tests:
+
+        make check
+
+4.  You can also create a .dmg that contains the .app bundle (optional):
+
+        make deploy
+
+### Linux
+Linux Instructions
+The following instructions describe installing Bitcoin Core on Linux systems.
+
+Ubuntu 16.04
+*Instructions for Bitcoin Core 0.14.2 and Higher
+
+If you use Ubuntu Desktop, click the Ubuntu swirl icon to start the Dash and type “term” into the input box. Choose any one of the terminals listed:
+
+Dash term
+
+Alternatively, access a console or terminal emulator using another method, such as SSH on Ubuntu Server or a terminal launcher in an alternative desktop environment.
+
+Type the following line to add the Bitcoin Personal Package Archive (PPA) to your system:
+
+sudo apt-add-repository ppa:bitcoin/bitcoin
+You will be prompted for your user password. Provide it to continue. Afterwards, the following text will be displayed:
+
+Stable Channel of bitcoin-qt and bitcoind for Ubuntu, and their
+dependencies
+
+Note that you should prefer to use the official binaries, where possible, to
+limit trust in Launchpad/the PPA owner.
+
+No longer supports precise, due to its ancient gcc and Boost versions.
+More info: https://launchpad.net/~bitcoin/+archive/ubuntu/bitcoin
+Press [ENTER] to continue or ctrl-c to cancel adding it
+Press enter to continue. The following text (with some variations) will be displayed and you will be returned to the command line prompt:
+
+gpg: keyring `/tmp/tmpixuqu73x/secring.gpg' created
+gpg: keyring `/tmp/tmpixuqu73x/pubring.gpg' created
+gpg: requesting key 8842CE5E from hkp server keyserver.ubuntu.com
+gpg: /tmp/tmpixuqu73x/trustdb.gpg: trustdb created
+gpg: key 8842CE5E: public key "Launchpad PPA for Bitcoin" imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+OK
+Type the following line to get the most recent list of packages:
+
+sudo apt-get update
+A large number of lines will be displayed as different update files are downloaded. This step may take several minutes on a slow Internet connection.
+
+To continue, choose one of the following options
+
+To install the Bitcoin Core Graphical User Interface (GUI), type the following line and proceed to the Bitcoin Core GUI section below:
+
+ sudo apt-get install bitcoin-qt
+To install the Bitcoin Core daemon (bitcoind), which is useful for programmers and advanced users, type the following line and proceed to the Bitcoin Core Daemon section below:
+
+ sudo apt-get install bitcoind
+To install both the GUI and the daemon, type the following line and read both the GUI instructions and the daemon instructions. Note that you can’t run both the GUI and the daemon at the same time using the same configuration directory.
+
+ sudo apt-get install bitcoin-qt bitcoind
+After choosing what packages to install, you will be asked whether you want to proceed. Press enter to continue.
 
 ## Configuration
 
