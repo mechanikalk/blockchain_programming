@@ -1,12 +1,13 @@
 =Bitcoin Command Line=
 ==Tools==
+First, you will need to install the bitcion client on your machine.  Directions for doing so can be found for the different operating systems in the links below.  Once you have validated that you have appropriately installed bitcoin, please proceed to the directions for configuring your installation to work with the test net before syncing. <br /><br />
 
-MacOS
-https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-osx.md
-Linux
-https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-unix.md
-Windows (not recommended)
-https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-windows.md
+MacOS<br />
+https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-osx.md<br /><br />
+Linux<br />
+https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-unix.md<br /><br />
+Windows (not recommended):<br />
+https://github.com/bitcoin/bitcoin/blob/e70a19e7132dac91b7948fcbfac086f86fec3d88/doc/build-windows.md<br /><br />
 
 ==Configuration==
 
