@@ -1,12 +1,11 @@
-# Bitcoin Command Line
-## Tools
+# Tools
 First, you will need to install the bitcoin client on your machine.  Directions for doing so can be found for the different operating systems in the links below.  Once you have validated that you have appropriately installed bitcoin, please proceed to the directions for configuring your installation to work with the test net before syncing. <br><br>
 
-### MacOS
+## MacOS
 The commands in this guide should be executed in a Terminal application.
 The built-in one is located in `/Applications/Utilities/Terminal.app`.
 
-#### Preparation
+### Preparation
 
 Install the macOS command line tools:
 
@@ -16,13 +15,13 @@ When the popup appears, click `Install`.
 
 Then install [Homebrew](https://brew.sh).
 
-#### Dependencies
+### Dependencies
 
 `brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python qt libevent qrencode`
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
-#### Build Bitcoin Core
+### Build Bitcoin Core
 
 1. Clone the Bitcoin Core source code:
 
@@ -41,8 +40,7 @@ See [dependencies.md](dependencies.md) for a complete overview.
 
         make check
 
-### Linux
-
+## Linux
 The following instructions describe installing Bitcoin Core on Linux systems. Perform the following in your terminal or emulator.
 
 Type the following line to add the Bitcoin Personal Package Archive (PPA) to your system:
@@ -91,14 +89,15 @@ sudo apt-get install bitcoind
 ```
 If there are no errors during installation proceed to configuration to configure the installation to operate on the Bitcoin testnet and then test the installation.
 
-## Configuration
+# Configuration
 
-Operating System	Default bitcoin datadir	Typical path to configuration file
-Windows	 %APPDATA%\Bitcoin\	C:\Users\username\AppData\Roaming\Bitcoin\bitcoin.conf
-Linux	$HOME/.bitcoin/	/home/username/.bitcoin/bitcoin.conf
-Mac OSX	$HOME/Library/Application Support/Bitcoin/	/Users/username/Library/Application Support/Bitcoin/bitcoin.conf
+You will now need to create a configuration file to run the Bitcoin daemon connected to the testnet.  The following are the default locations for configuration files for both MacOS and Linux.<br>
+ 
+**Linux**	$HOME/.bitcoin/bitcoin.conf<br><br>
+**Mac OSX**	$HOME/Library/Application Support/Bitcoin/bitcoin.conf<br><br>
 
-Configure to run on the testnet
+Use your favorite text editor or IDE to create a the bitcoin.conf file in the appropriate location.  Write the following to the bitcoin.conf file and save.<br>
+
 ``` BASH
 ##
 ## bitcoin.conf configuration file. Lines beginning with # are comments.
@@ -245,42 +244,70 @@ rpcport=18332
 # Minimize to the system tray
 #minimizetotray=1
 ```
-Add aliases
-MacOS
+## Add aliases
+Aliases will allow us to access the bitcoind and bitcoin-cli without having to specify the full path.  To set the aliases, execute the following to update your .bash_profile. **Note:** aliases are different for Mac and Linux.
 
+### MacOS
+```BASH
 cat >> ~/.bash_profile <<EOF
 alias btcdir="cd ~/Library/Application Support/Bitcoin" #MacOS default bitcoind path
 alias bc="~/bitcoin/src/bitcoin-cli"
 alias bd="~/bitcoin/src/bitcoind"
 alias btcinfo='bc getwalletinfo | egrep "\"balance\""; bc getnetworkinfo | egrep "\"version\"|connections"; bc getmininginfo | egrep "\"blocks\"|errors"'
 EOF
+```
 
-Linux
+### Linux
+```BASH
 cat >> ~/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
-alias bc="bitcoin-cli"
-alias bd="bitcoind"
-alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
+alias bc="~/.bitcoin/bitcoin-cli"
+alias bd="~/.bitcoin/bitcoind"
+alias btcinfo='bc getwalletinfo | egrep "\"balance\""; bc getnetworkinfo | egrep "\"version\"|connections"; bc getmininginfo | egrep "\"blocks\"|errors"'
 EOF
+```
 
-Reload .bash_profile
+Reload your .bash_profile for aliases to take effect.
+```BASH
 source ~/.bash_profile
+```
 
-Start bitcoind
+## Start bitcoind
+```BASH
 bd
+```
 
-Monitor bitcoind in a new tab
-tail -f $HOME/Library/Application\ Support/Bitcoin/testnet3/debug.log
+Monitor the status of bitcoind in a new terminal tab using the tails command:
 
-Find commands
+**MacOS:**<br>
+```BASH
+tail -f ~/Library/Application\ Support/Bitcoin/testnet3/debug.log
+```
+
+**Linux:**<br>
+```BASH
+tail -f ~/.bitcoin/testnet3/debug.log
+```
+
+You should see new blocks being written to the log. 
+
+## Check bitcoin-cli installation
+To check to see if bitcoin-cli is working correctly with bitcoind, open another new terminal tab and type the following command:
+
+```BASH
 bc help
+```
 
-Example commands
+If you see a list of commands you are good to go.  If you get an error something went wrong. You are now ready to start using bitcoin-cli.  However, you will need to wait for you bitcoind instance to sync before you can make transactions. Syncing will take ~1 hour.  You can just leave you machine on and come back after dinner. 
+
+Here are some example commands to try out with bitcoin-cli:
+```BASH
 bc getblockchaininfo
 bc getmininginfo
 bc getnetworkinfo
 bc getnettotals
 bc getwalletinfo
+```
 
 Generate a wallet
 37Jf33PJXnk7aQNvMBewye4JJGAc35WBBo
