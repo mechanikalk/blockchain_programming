@@ -273,6 +273,7 @@ source ~/.bash_profile
 ```
 
 ## Start bitcoind
+Use the following command to start the bitcoin daemon:
 ```BASH
 bd
 ```
@@ -310,12 +311,11 @@ bc getwalletinfo
 ```
 # Using Bitcoin!
 ## Generate a wallet
+Before we can do anything with 
+```BASH
 $ bitcoin-cli getnewaddress "" legacy
-n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
-
-37Jf33PJXnk7aQNvMBewye4JJGAc35WBBo
-
-
+2Mz6bRRUV5kfDUv87FFaPAgqMECDuMQn9ta
+```
 Now that you have a wallet, you will need to get an address from your wallet.  The wallet in this case is a hierarchical deterministic (HD) wallet which you can find out more about by reading Bitcoin Improvement Proposal (BIP) 32 https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki . 
 
 **Note:** All bips proposed and implemented can be viewed at https://github.com/bitcoin/bips.  These are often the best source of information when trying to learn about or understand a feature of Bitcoin without having to read the source code. 
@@ -329,7 +329,7 @@ unset NEW_ADDRESS_1
 $ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
 ```
 
-These commands clear the NEW_ADDRESS_1 variable, just to be sure, then fill it with the results of the bitcoin-cli getnewaddress command.
+These commands clear the NEW_ADDRESS_1 variable, then fills it with the results of the bitcoin-cli getnewaddress command.
 
 You can then use your shell's echo command to look at your (new) address:
 ```BASH
@@ -337,8 +337,14 @@ $ echo $NEW_ADDRESS_1
 2Mz6bRRUV5kfDUv87FFaPAgqMECDuMQn9ta
 ```
 
+## Get some 'testnet' Bitcoin
+
+The following website will send you some testnet bitcoin so that you can play and learn.  
+
 https://coinfaucet.eu/en/btc-testnet/
-Check Transaction Status
+
+Enter your bitcoin address and fillout the captcha. Once it shows that it is sending some testnet bitcoin you can check the status of the transaction at:
+
 https://live.blockcypher.com/
 
 Select "Bitcoin Testnet" in the search menu and enter your Bitcoin address
