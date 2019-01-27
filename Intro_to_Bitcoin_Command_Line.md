@@ -198,7 +198,7 @@ unset NEW_ADDRESS_1
 $ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress "" legacy)
 ```
 
-These commands clear the NEW_ADDRESS_1 variable, then fills it with the results of the bitcoin-cli getnewaddress command. The flag legacy is used here because some of the features of bitcoin-cli are not yet supported for "new" seg-wit addresses. You can tell that this is a 
+These commands clear the NEW_ADDRESS_1 variable, then fills it with the results of the bitcoin-cli getnewaddress command. The flag legacy is used here because some of the features of bitcoin-cli are not yet supported for "new" seg-wit addresses. You can tell that this is a legacy address because it starts with a n or m rather than a 2.
 
 You can then use your shell's echo command to look at your (new) address:
 ```BASH
@@ -274,7 +274,7 @@ If you search for this value in your wallet file you should find that it appears
 The beauty of HD wallets is that as long as you have this line, you can re-derive the rest of the file by changing the `hdkeypath`. This gives Bitcoin users the ability to manage a single secret but derive an infinite number of addresses which they can use easily. I will also mention here, that if you have actual bitcoin in your wallet, you do not want to **share this file or your masterkey with anyone**.  The ownership of bitcoin is the posession of this private key and the ability to sign transactions with it.  Therefore, if anyone else gets your private keys, or your wallet.dat file, they have your Bitcoin.
 
 ### Signing a message
-*** Assignment Deliverable 1: *** You will need to sign a message with you 0/0/0 account that is your UT ID and submit the message and the account to your TA.
+*** Assignment Deliverable 1: *** You will need to sign a message with an account that is your UT ID and submit the message and the account to your TA. You will use this account for the rest of your deliverables.
 
 The heart of Bitcoin, blockchain, and any cryptocurrency is signing messages with private keys that can then be verified by using a public key.  A bitcoin address is a representation of a public key and a bitcoin transaction is like a check that tells the network to move money from one account to the other.  The check is signed using an addresses corresponding private key, and if the signature is valid, the miners update the ledger as long as the transaction meets the rules of consensus.
 
@@ -317,7 +317,76 @@ you should see a result similar to the following:
 }
 ```
 
-Now that you have testnet bitcoins it is time for you to try and sign and send a transaction.
+You will note that the "balance" field is no longer 0 because you have recieved testnet Bitcoins from the faucet. You can see that your wallet current has 1 transaction and has a keypool of 999 keys. To learn more about the wallet.  Try out these commands:
+
+```BASH
+bc listtransactions
+bc listunspent
+bc getrawtransaction
+```
+This will tell you information about the transactions, your unspent transaction outputs (UTXOs) as well as letting you see the raw transaction data.
+
+*** Assignment Deliverable 2: *** Using the commands above, find your transaction ID and then use that to find the hex of your transaction as well as the JSON interpreted output of the transaction.  You will submit the transaction ID, the hex, and the JSON output.
+
+## Making a transaction
+
+Now that you have your wallet setup and you have some testnet Bitcoin lets go ahead and make a simple transaction. To do this you will need to generate a new address. You will then need to setup some of the default configuration values for bitcoin-cli by adding these lines to your bitcoin.conf file.
+
+```BASH
+mintxfee=0.00001
+txconfirmtarget=6
+```
+
+Once these are set you can send money simply by:
+
+```BASH
+$ bc sendtoaddress mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK 0.01
+49377bf7e2d6524ebaeef8eec67db3fe22dc57dcced9f63d5bd89e021b983edb
+```
+The result is the transaction ID.  You can learn more about the transaction ID by using:
+
+```BASH
+ $ bc gettransaction 49377bf7e2d6524ebaeef8eec67db3fe22dc57dcced9f63d5bd89e021b983edb
+{
+  "amount": 0.00000000,
+  "fee": -0.00000168,
+  "confirmations": 0,
+  "trusted": true,
+  "txid": "49377bf7e2d6524ebaeef8eec67db3fe22dc57dcced9f63d5bd89e021b983edb",
+  "walletconflicts": [
+  ],
+  "time": 1548631273,
+  "timereceived": 1548631273,
+  "bip125-replaceable": "no",
+  "details": [
+    {
+      "account": "",
+      "address": "mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK",
+      "category": "send",
+      "amount": -0.01000000,
+      "label": "",
+      "vout": 0,
+      "fee": -0.00000168,
+      "abandoned": false
+    },
+    {
+      "account": "",
+      "address": "mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK",
+      "category": "receive",
+      "amount": 0.01000000,
+      "label": "",
+      "vout": 0
+    }
+  ],
+  "hex": "02000000000101611fbe48bfd8ec6b8c0cbdb66432486a7c9430dda1062af8b657615bc0ffcfa50000000017160014467b8e642ef4659cc5c9f2dbeed51696ee98b458feffffff0240420f00000000001976a91467ed4a521f8a3d32a373b7d33ea9b942fb215e3288ac6a5166000000000017a914ce16f0dc82a233f433063018057c68be7a1dc1918702483045022100f6b9c8ae54aca7e9df3d6ae17e0971e2ee7535bf0840b28c02e86ff8fd15dfa6022068c8441252a47c8294357246ee0dab4b977669530ae31daec37e1922fd79883d0121030a830e465562709ddcdc1e397af9098c1ff862ba98f3a8cfd5ffb9c95c9141eb5d301600"
+}
+```
+
+This shows that we sent 0.01 BTC to mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK.  However, there is a significant ammount of information that is hidden in the transaction hex field.  To learn more about it lets lookup the transaction on https://live.blockcypher.com/btc-testnet/ and see what we can figure out.
+
+![](Images/BlockCypherTx.png)
+
+https://testnet-faucet.mempool.co/
 
 
 
