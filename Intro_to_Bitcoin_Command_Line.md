@@ -22,10 +22,6 @@ Then install [Homebrew](https://brew.sh).
 
 See [dependencies.md](dependencies.md) for a complete overview.
 
-If you want to build the disk image with `make deploy` (.dmg / optional), you need RSVG:
-
-`brew install librsvg`
-
 #### Build Bitcoin Core
 
 1. Clone the Bitcoin Core source code:
@@ -37,30 +33,17 @@ If you want to build the disk image with `make deploy` (.dmg / optional), you ne
 
     Configure and build the headless Bitcoin Core binaries as well as the GUI (if Qt is found).
 
-    You can disable the GUI build by passing `--without-gui` to configure.
-
         ./autogen.sh
-        ./configure
+        ./configure --without-gui
         make
 
 3.  It is recommended to build and run the unit tests:
 
         make check
 
-4.  You can also create a .dmg that contains the .app bundle (optional):
-
-        make deploy
-
 ### Linux
 
-The following instructions describe installing Bitcoin Core on Linux systems.
-
-Ubuntu 16.04
-*Instructions for Bitcoin Core 0.14.2 and Higher
-
-If you use Ubuntu Desktop, click the Ubuntu swirl icon to start the Dash and type “term” into the input box. Choose any one of the terminals listed.
-
-Alternatively, access a console or terminal emulator using another method, such as SSH on Ubuntu Server or a terminal launcher in an alternative desktop environment.
+The following instructions describe installing Bitcoin Core on Linux systems. Perform the following in your terminal or emulator.
 
 Type the following line to add the Bitcoin Personal Package Archive (PPA) to your system:
 
@@ -99,9 +82,9 @@ Type the following line to get the most recent list of packages:
 ```BASH
 sudo apt-get update
 ```
-A large number of lines will be displayed as different update files are downloaded. This step may take several minutes on a slow Internet connection.
+This step may take several minutes.
 
-Install the Bitcoin Core daemon (bitcoind), which is useful for programmers and advanced users, type the following line and proceed to the Bitcoin Core Daemon section below:
+Install the Bitcoin Core daemon (bitcoind) using the following:
 
 ```BASH
 sudo apt-get install bitcoind
