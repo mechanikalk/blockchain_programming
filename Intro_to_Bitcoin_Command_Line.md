@@ -308,18 +308,36 @@ bc getnetworkinfo
 bc getnettotals
 bc getwalletinfo
 ```
+# Using Bitcoin!
+## Generate a wallet
+$ bitcoin-cli getnewaddress "" legacy
+n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 
-Generate a wallet
 37Jf33PJXnk7aQNvMBewye4JJGAc35WBBo
 
-Now that you have a wallet, you will need to get an address from your wallet.  The wallet in this case is a hierarchical deterministic (HD) wallet which you can find out more about by reading Bitcoin Improvement Proposal (BIP) 32 https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki . All bips proposed and implemented can be viewed at https://github.com/bitcoin/bips.  These are often the best source of information when trying to learn about or understand a feature of Bitcoin without having to read the source code. 
 
-A HD wallet is a set of addresses which is generated from a single master seed using a hierarchical deterministic process.  So a wallet can have many types of coins, such as Bitcoin, Bitcoin Testnet, Litecoin, et cetera.  A wallet has many ddresses with different uses such as external or change. A wallet can also organize the addresses for a specific coin type into accounts.  Where the account will have many addresses for that coin type.  This may all seem confusing but you can learn more at https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki.  But simply for now you can think of wallets as having many addresses.
+Now that you have a wallet, you will need to get an address from your wallet.  The wallet in this case is a hierarchical deterministic (HD) wallet which you can find out more about by reading Bitcoin Improvement Proposal (BIP) 32 https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki . 
 
-Before we can use our newly generated wallet, we will need to get an address from our wallet.
+**Note:** All bips proposed and implemented can be viewed at https://github.com/bitcoin/bips.  These are often the best source of information when trying to learn about or understand a feature of Bitcoin without having to read the source code. 
+
+A HD wallet is a set of addresses which is generated from a single master seed using a hierarchical deterministic process.  So a wallet can have many types of coins, such as Bitcoin, Bitcoin Testnet, Litecoin, et cetera.  A wallet can also organize the addresses for a specific coin type into accounts.  Where the account will have many addresses for that coin type.  This may all seem confusing but you can learn more at https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki.  But for now you can simply think of wallets as having many addresses.
+
+Before we can use our newly generated wallet, we will need to get an address from our wallet. To do this you will need to get a recieve address from your wallet.  This can be done by using the `getnewaddress` command, but to make things simpler lets save the result as a variable so we can access it easily in the future.
+
+```BASH
+unset NEW_ADDRESS_1
+$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
+```
+
+These commands clear the NEW_ADDRESS_1 variable, just to be sure, then fill it with the results of the bitcoin-cli getnewaddress command.
+
+You can then use your shell's echo command to look at your (new) address:
+```BASH
+$ echo $NEW_ADDRESS_1
+2Mz6bRRUV5kfDUv87FFaPAgqMECDuMQn9ta
+```
 
 https://coinfaucet.eu/en/btc-testnet/
-
 Check Transaction Status
 https://live.blockcypher.com/
 
