@@ -99,150 +99,11 @@ You will now need to create a configuration file to run the Bitcoin daemon conne
 Use your favorite text editor or IDE to create a the bitcoin.conf file in the appropriate location.  Write the following to the bitcoin.conf file and save.<br>
 
 ``` BASH
-##
-## bitcoin.conf configuration file. Lines beginning with # are comments.
-##
- 
-# Network-related settings:
-
 # Run on the test network instead of the real bitcoin network.
 testnet=1
 
-# Run a regression test network
-#regtest=0
-
-# Connect via a SOCKS5 proxy
-#proxy=127.0.0.1:9050
-
-# Bind to given address and always listen on it. Use [host]:port notation for IPv6
-#bind=<addr>
-
-# Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6
-#whitebind=<addr>
-
-##############################################################
-##            Quick Primer on addnode vs connect            ##
-##  Let's say for instance you use addnode=4.2.2.4          ##
-##  addnode will connect you to and tell you about the      ##
-##    nodes connected to 4.2.2.4.  In addition it will tell ##
-##    the other nodes connected to it that you exist so     ##
-##    they can connect to you.                              ##
-##  connect will not do the above when you 'connect' to it. ##
-##    It will *only* connect you to 4.2.2.4 and no one else.##
-##                                                          ##
-##  So if you're behind a firewall, or have other problems  ##
-##  finding nodes, add some using 'addnode'.                ##
-##                                                          ##
-##  If you want to stay private, use 'connect' to only      ##
-##  connect to "trusted" nodes.                             ##
-##                                                          ##
-##  If you run multiple nodes on a LAN, there's no need for ##
-##  all of them to open lots of connections.  Instead       ##
-##  'connect' them all to one node that is port forwarded   ##
-##  and has lots of connections.                            ##
-##       Thanks goes to [Noodle] on Freenode.               ##
-##############################################################
-
-# Use as many addnode= settings as you like to connect to specific peers
-#addnode=69.164.218.197
-#addnode=10.0.0.2:8333
-
-# Alternatively use as many connect= settings as you like to connect ONLY to specific peers
-#connect=69.164.218.197
-#connect=10.0.0.1:8333
-
-# Listening mode, enabled by default except when 'connect' is being used
-#listen=1
-
-# Maximum number of inbound+outbound connections.
-#maxconnections=
-
-#
-# JSON-RPC options (for controlling a running Bitcoin/bitcoind process)
-#
-
-# server=1 tells Bitcoin-Qt and bitcoind to accept JSON-RPC commands
-#server=0
-
-# Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6.
-# This option can be specified multiple times (default: bind to all interfaces)
-#rpcbind=<addr>
-
-# If no rpcpassword is set, rpc cookie auth is sought. The default `-rpccookiefile` name
-# is .cookie and found in the `-datadir` being used for bitcoind. This option is typically used
-# when the server and client are run as the same user.
-#
-# If not, you must set rpcuser and rpcpassword to secure the JSON-RPC API.
-#
-# The config option `rpcauth` can be added to server startup argument. It is set at initialization time
-# using the output from the script in share/rpcauth/rpcauth.py after providing a username:
-#
-# ./share/rpcauth/rpcauth.py alice
-# String to be appended to bitcoin.conf:
-# rpcauth=alice:f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae
-# Your password:
-# DONT_USE_THIS_YOU_WILL_GET_ROBBED_8ak1gI25KFTvjovL3gAM967mies3E=
-#
-# On client-side, you add the normal user/password pair to send commands:
-#rpcuser=alice
-#rpcpassword=DONT_USE_THIS_YOU_WILL_GET_ROBBED_8ak1gI25KFTvjovL3gAM967mies3E=
-#
-# You can even add multiple entries of these to the server conf file, and client can use any of them:
-# rpcauth=bob:b2dd077cb54591a2f3139e69a897ac$4e71f08d48b4347cf8eff3815c0e25ae2e9a4340474079f55705f40574f4ec99
-
-# How many seconds bitcoin will wait for a complete RPC HTTP request.
-# after the HTTP connection is established. 
-#rpcclienttimeout=30
-
-# By default, only RPC connections from localhost are allowed.
-# Specify as many rpcallowip= settings as you like to allow connections from other hosts,
-# either as a single IPv4/IPv6 or with a subnet specification.
-
-# NOTE: opening up the RPC port to hosts outside your local trusted network is NOT RECOMMENDED,
-# because the rpcpassword is transmitted over the network unencrypted.
-
-# server=1 tells Bitcoin-Qt to accept JSON-RPC commands.
-# it is also read by bitcoind to determine if RPC should be enabled 
-#rpcallowip=10.1.1.34/255.255.255.0
-#rpcallowip=1.2.3.4/24
-#rpcallowip=2001:db8:85a3:0:0:8a2e:370:7334/96
-
 # Listen for RPC connections on this TCP port:
 rpcport=18332
-
-# You can use Bitcoin or bitcoind to send commands to Bitcoin/bitcoind
-# running on another host using this option:
-#rpcconnect=127.0.0.1
-
-# Wallet options
-
-# Create transactions that have enough fees so they are likely to begin confirmation within n blocks (default: 6).
-# This setting is over-ridden by the -paytxfee option.
-#txconfirmtarget=n
-
-# Pay a transaction fee every time you send bitcoins.
-#paytxfee=0.000x
-
-# Miscellaneous options
-
-# Pre-generate this many public/private key pairs, so wallet backups will be valid for
-# both prior transactions and several dozen future transactions.
-#keypool=100
-
-# Enable pruning to reduce storage requirements by deleting old blocks. 
-# This mode is incompatible with -txindex and -rescan.
-# 0 = default (no pruning).
-# 1 = allows manual pruning via RPC.
-# >=550 = target to stay under in MiB. 
-# prune=0
-
-# User interface options
-
-# Start Bitcoin minimized
-#min=1
-
-# Minimize to the system tray
-#minimizetotray=1
 ```
 ## Add aliases
 Aliases will allow us to access the bitcoind and bitcoin-cli without having to specify the full path.  To set the aliases, execute the following to update your .bash_profile. **Note:** aliases are different for Mac and Linux.
@@ -350,6 +211,61 @@ https://live.blockcypher.com/
 Select "Bitcoin Testnet" in the search menu and enter your Bitcoin address
 
 You should see a test faucet transaction sending money to your wallet.  If not, wait for a few minutes and refresh.  The reason that you will potentially need to wait is that you transaction must be included in a block.  Bitcoin blocks are found using a stochastic process of mining where blocks are typically found every 10 minutes.  There can be a significant deviation in any given block time ranging from 1 minute to 60 minutes is not atypical. To check on the progress of the Bitcoin testnet blocks you can go to https://live.blockcypher.com/btc-testnet/ and see when the last block was found.
+
+### Explore your wallet while you wait
+Now that you have a wallet you will need to back it up.  Future assignmets will require you to "turn-in" your work by executing a transaction on the blockchain from one of the addresses in this account.  Therefore, you will need to back-up your wallet. You can do this by running:
+
+```BASH
+bc backupwallet backup.dat
+```
+
+Locate this file on your computer and save it in a safe location.  If in the future you need to restore your wallet you can do so by importing the wallet using:
+
+```BASH
+bc importwallet backup.dat
+```
+
+To better understand what is going on in the background we can dump the wallet in plaintext format.  To do this run:
+
+```BASH
+bc dumpwallet ~mywallet.txt
+```
+
+Open the resulting file in your text editor.  You will see something like the following:
+
+```BASH
+cQ4qpkvWCRvZaxGgbitZs5RJCBGoL9g1mqQmsssRw93F3WbybPqY 2019-01-20T04:37:24Z reserve=1 # addr=2N1cjToNQPX4JHQTJNLz94TFa8bcEseoPuQ hdkeypath=m/0'/0'/195'
+cRCvHdRZaEfjtgC15s7AV7nKwVxpUDumRJPeTfawwLEmhPVwCyHc 2019-01-20T04:37:24Z reserve=1 # addr=2NA18oui36UXLdeyzViDCtZxZSvKnRK6782 hdkeypath=m/0'/0'/691'
+cTrEobtoAuq3Zw6NbR1n6xvPSoCY5Bqu7FHHqmmbf3Yzc1zbEP2T 2019-01-20T04:37:24Z reserve=1 # addr=2NBbat4jgaLmXYnPPvdXhw1Gmanm66FWnJi hdkeypath=m/0'/0'/672'
+cTGS9GLiSmmFv6uUAGYhmAyBC5tfNv2uHQT4SDJMgD6mChb3dvD4 2019-01-20T04:37:24Z reserve=1 # addr=2N5TfhrXWVVg6g4GMfG99XBt84Fx2ZPhtM8 hdkeypath=m/0'/0'/475'
+cPTDBf9G73476d1k2BKRQptKUnF1NHeKcwqUeK66BNTHNnZty1o5 2019-01-20T04:37:24Z reserve=1 # addr=2N8oTz3XKpp7QVuSGiArxWYWF9PAYRn3Fcp hdkeypath=m/0'/0'/430'
+cTHDfPzfN6TKXFtXFnmCqEtq4erTR7t6n1VmnUJX1PJHcip3D2Tu 2019-01-20T04:37:24Z reserve=1 # addr=2N1M9KJu6AtU62tEVstytZcZMYTrkYDDxoM hdkeypath=m/0'/0'/273'
+cV1cYg7nYbyyAVWpiaEgXTT2XCGsDxiMVig9bdTbipFhGUHX6BZk 2019-01-20T04:37:24Z reserve=1 # addr=2NCHHAc7ykgpvsbVdsgy9jRPX6eth4nV65K hdkeypath=m/0'/0'/712'
+cPsbCqpytvwtqe4YA1hJkopiK57bCCCcSBqRdiJJRxEuXcwvZ8hr 2019-01-20T04:37:24Z reserve=1 # addr=2MzUs5uaMXM8ye8WuovqBFW8h8v8p3rdHHg hdkeypath=m/0'/0'/729'
+cPULsxLpi6vHoxayNMuiGp9yRcCksftEPbWhojCFF3mpXKtdkjSU 2019-01-20T04:37:24Z reserve=1 # addr=2N1rTT1Uh8ChfvFF7QEAPUvwBZaQBaiFM46 hdkeypath=m/0'/0'/307'
+```
+
+Go ahead and search for your address that you used to get your testnet bitcoin.  If you already forget it you can find it by `echo NEW_ADDRESS_1`.  You should find it and at the end of the line you will see that `hdkeypath=m/0'/0'/0'`.  This is the first address in your HD wallet tree.  The value to the left, is the private key corresponding to this address which needs to be used to move Bitcoin from this address.  
+
+Lets get a new address and see what happens.
+
+```BASH
+unset NEW_ADDRESS_2
+NEW_ADDRESS_2=$(bitcoin-cli getnewaddress)
+```
+```BASH
+$ echo $NEW_ADDRESS_1
+2Mu8ciAruGtBrBCQVRqh5SsZBk3G2Nh7Ns9
+```
+If you search for this value in your wallet file you should find that it appears in the line with `hdkeypath=m/0'/0'/1'`.  This is the second address in your HD wallet.  You can use address in Bitcoin multiple times, howeever privacy is better perseved if addresses are not reused. This is one of the reasons for an HD wallet.  If you look at the top of the file you will see that there is similar to:
+
+```BASH
+# extended private masterkey: tprv8ZgxMBicQKsPdNtUXyQ3x2h9AJpp1EDayZsSHFj52HXPjRdehHDqADx7kJ8ZNf7AhbchZXAj2CRczMYMVXxXeSNPkwWYhjESRRDR98TSwnN
+```
+
+The beauty of HD wallets is that as long as you have this line, you can re-derive the rest of the file by changing the `hdkeypath`. This gives Bitcoin users the ability to manage a single secret but derive an infinite number of addresses which they can use easily. I will also mention here, that if you have actual bitcoin in your wallet, you do not want to **share this file or your masterkey with anyone**.  The ownership of bitcoin is the posession of this private key and the ability to sign transactions with it.  Therefore, if anyone else gets your private keys, or your wallet.dat file, they have your Bitcoin.
+
+### Back to your transaction
 
 Once you see the transaction on the testnet, go back to the command line and enter
 
