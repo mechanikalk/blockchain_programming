@@ -160,7 +160,15 @@ To check to see if bitcoin-cli is working correctly with bitcoind, open another 
 bc help
 ```
 
-If you see a list of commands you are good to go.  If you get an error something went wrong. You are now ready to start using bitcoin-cli.  However, you will need to wait for you bitcoind instance to sync before you can make transactions. Syncing will take ~1 hour.  You can just leave you machine on and come back after dinner. 
+If you see a list of commands you are good to go.  If you get an error something went wrong. This could be caused by one of the following things.
+
+1) The blockchain is not yet synced.  Check the status by using the tails command above. 
+2) The bitcoin.conf file is not correctly written. Make sure this is done correctly and in the correct path.
+3) bitcoind is not currently running.  Look at your system processes and make sure you see bitcoind.
+4) The alias paths are not correctly setup.  
+5) If all else fails, try google, a friend, or ask your friendly TA.
+
+You are now ready to start using bitcoin-cli.  However, you will need to wait for you bitcoind instance to sync before you can make transactions. Syncing will take ~1 hour.  You can just leave you machine on and come back after dinner. 
 
 Here are some example commands to try out with bitcoin-cli:
 ```BASH
@@ -187,10 +195,10 @@ Before we can use our newly generated wallet, we will need to get an address fro
 
 ```BASH
 unset NEW_ADDRESS_1
-$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
+$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress "" legacy)
 ```
 
-These commands clear the NEW_ADDRESS_1 variable, then fills it with the results of the bitcoin-cli getnewaddress command.
+These commands clear the NEW_ADDRESS_1 variable, then fills it with the results of the bitcoin-cli getnewaddress command. The flag legacy is used here because some of the features of bitcoin-cli are not yet supported for "new" seg-wit addresses. You can tell that this is a 
 
 You can then use your shell's echo command to look at your (new) address:
 ```BASH
@@ -200,7 +208,7 @@ $ echo $NEW_ADDRESS_1
 
 ## Get some 'testnet' Bitcoin
 
-The following website will send you some testnet bitcoin so that you can play and learn.  
+The following website will send you some testnet bitcoin so that you can play around and learn how to use Bitcoin.  
 
 https://coinfaucet.eu/en/btc-testnet/
 
@@ -245,17 +253,17 @@ cPsbCqpytvwtqe4YA1hJkopiK57bCCCcSBqRdiJJRxEuXcwvZ8hr 2019-01-20T04:37:24Z reserv
 cPULsxLpi6vHoxayNMuiGp9yRcCksftEPbWhojCFF3mpXKtdkjSU 2019-01-20T04:37:24Z reserve=1 # addr=2N1rTT1Uh8ChfvFF7QEAPUvwBZaQBaiFM46 hdkeypath=m/0'/0'/307'
 ```
 
-Go ahead and search for your address that you used to get your testnet bitcoin.  If you already forget it you can find it by `echo NEW_ADDRESS_1`.  You should find it and at the end of the line you will see that `hdkeypath=m/0'/0'/0'`.  This is the first address in your HD wallet tree.  The value to the left, is the private key corresponding to this address which needs to be used to move Bitcoin from this address.  
+Go ahead and search for your address that you used to get your testnet bitcoin.  If you already forget it you can find it by `echo NEW_ADDRESS_1`.  You should find it and at the end of the line you will see that `hdkeypath=m/0'/0'/0'`.  This is the first address in your HD wallet tree.  The value to the left, (e.g.  is the private key corresponding to this address which needs to be used to move Bitcoin from this address.  
 
 Lets get a new address and see what happens.
 
 ```BASH
 unset NEW_ADDRESS_2
-NEW_ADDRESS_2=$(bitcoin-cli getnewaddress)
+NEW_ADDRESS_2=$(bitcoin-cli getnewaddress "" legacy)
 ```
 ```BASH
 $ echo $NEW_ADDRESS_1
-2Mu8ciAruGtBrBCQVRqh5SsZBk3G2Nh7Ns9
+mhpt1x5Ro8SSMAQrkXwCj4F6sZd1xL9nsT
 ```
 If you search for this value in your wallet file you should find that it appears in the line with `hdkeypath=m/0'/0'/1'`.  This is the second address in your HD wallet.  You can use address in Bitcoin multiple times, howeever privacy is better perseved if addresses are not reused. This is one of the reasons for an HD wallet.  If you look at the top of the file you will see that there is similar to:
 
@@ -264,6 +272,24 @@ If you search for this value in your wallet file you should find that it appears
 ```
 
 The beauty of HD wallets is that as long as you have this line, you can re-derive the rest of the file by changing the `hdkeypath`. This gives Bitcoin users the ability to manage a single secret but derive an infinite number of addresses which they can use easily. I will also mention here, that if you have actual bitcoin in your wallet, you do not want to **share this file or your masterkey with anyone**.  The ownership of bitcoin is the posession of this private key and the ability to sign transactions with it.  Therefore, if anyone else gets your private keys, or your wallet.dat file, they have your Bitcoin.
+
+### Signing a message
+*** Assignment Deliverable 1: *** You will need to sign a message with you 0/0/0 account that is your UT ID and submit the message and the account to your TA.
+
+The heart of Bitcoin, blockchain, and any cryptocurrency is signing messages with private keys that can then be verified by using a public key.  A bitcoin address is a representation of a public key and a bitcoin transaction is like a check that tells the network to move money from one account to the other.  The check is signed using an addresses corresponding private key, and if the signature is valid, the miners update the ledger as long as the transaction meets the rules of consensus.
+
+In addition to being able to sign Bitcoin messages, you can also use the same keypairs to sign any abitrary message.  This can be done using the following:
+
+```BASH
+$ bc signmessage "mhpt1x5Ro8SSMAQrkXwCj4F6sZd1xL9nsT" "Hello, Bitcoin!"
+H9v014McOc0+ESiyWMWJ2lBcGi+Vd+O0/IqSR0mdt15IEK7z158PKkD8JeRe5j4n29+Gyu2m5F3qPWwHQuAPS90=
+```
+The veracity of the message can be checked by using `verifymessage "address" "signeddata" "message"`.
+
+```BASH
+$ bc verifymessage "mhpt1x5Ro8SSMAQrkXwCj4F6sZd1xL9nsT" "H9v014McOc0+ESiyWMWJ2lBcGi+Vd+O0/IqSR0mdt15IEK7z158PKkD8JeRe5j4n29+Gyu2m5F3qPWwHQuAPS90=" "Hello, Bitcoin"
+true
+```
 
 ### Back to your transaction
 
@@ -291,4 +317,8 @@ you should see a result similar to the following:
 }
 ```
 
-Now that you have testnet bitcoins it is time for you to try and sign and send a transaction
+Now that you have testnet bitcoins it is time for you to try and sign and send a transaction.
+
+
+
+
