@@ -292,7 +292,7 @@ If you search for this value in your wallet file you should find that it appears
 The beauty of HD wallets is that as long as you have this line, you can re-derive the rest of the file by changing the `hdkeypath`. This gives Bitcoin users the ability to manage a single secret but derive an infinite number of addresses which they can use easily. I will also mention here, that if you have actual bitcoin in your wallet, you do not want to **share this file or your masterkey with anyone**.  The ownership of bitcoin is the posession of this private key and the ability to sign transactions with it.  Therefore, if anyone else gets your private keys, or your wallet.dat file, they have your Bitcoin.
 
 ### Signing a message
-*** Assignment Deliverable 1: *** You will need to sign a message with an account that is your UT ID and submit the message and the account to your TA. You will use this account for the rest of your deliverables.
+***Assignment Deliverable 1:*** You will need to sign a message with an account that is your UT ID and submit the message and the account to your TA. You will use this account for the rest of your deliverables.
 
 The heart of Bitcoin, blockchain, and any cryptocurrency is signing messages with private keys that can then be verified by using a public key.  A bitcoin address is a representation of a public key and a bitcoin transaction is like a check that tells the network to move money from one account to the other.  The check is signed using an addresses corresponding private key, and if the signature is valid, the miners update the ledger as long as the transaction meets the rules of consensus.
 
@@ -341,12 +341,13 @@ You will note that the "balance" field is no longer 0 because you have recieved 
 bc listtransactions
 bc listunspent
 bc getrawtransaction
+bc decoderawtransaction
 ```
 This will tell you information about the transactions, your unspent transaction outputs (UTXOs) as well as letting you see the raw transaction data.
 
-*** Assignment Deliverable 2: *** Using the commands above, find your transaction ID and then use that to find the hex of your transaction as well as the JSON interpreted output of the transaction.  You will submit the transaction ID, the hex, and the JSON output.
+***Assignment Deliverable 2:*** Using the commands above, find your transaction ID and then use that to find the hex of your transaction as well as the JSON interpreted output of the transaction.  You will submit the transaction ID, the hex, and the JSON output.
 
-## Making a transaction
+## Making a simple transaction
 
 Now that you have your wallet setup and you have some testnet Bitcoin lets go ahead and make a simple transaction. For this transaction, you will be sending money to your TAs using `mgct4AqGBPNxigwWnbZnJLL8YpxTEkF3eA`. 
 
@@ -400,12 +401,17 @@ This shows that we sent 0.01 BTC to mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK.  However
 
 ![](Images/BlockCypherTx.png)
 
+BTW Congratulations! You have just made a Bitcoin transaction.  You have seen this happen on a block explorer and can conjure the power of magic internet money!
 
-So what can we see from here.  There is one input to the transaction and two outputs from the transaction.  If we go use `bc listunspent` you will see that you no longer have one UTXO but you rather have two and the old UTXO is no longer displayed.  This is because the UTXO was consumed in this transaction when it was used as an input.  This also helps explains why there are two outputs.  The first output is you sending the 0.01 to your TAs.  The second output is the change that is being sent back to your wallet.  If you wanted you could have sent the change back to the original address, however this is considered bad practice from a privacy perspective so by default bitcoin-cli sent the change to a new address in your wallet. 
+So what can we see from from the block explorer.  There is one input to the transaction and two outputs from the transaction.  If we go use `bc listunspent` you will see that you no longer have one UTXO but you rather have one new one and the old UTXO is no longer displayed.  This is because the UTXO was consumed in this transaction when it was used as an input.  This also helps explains why there are two outputs.  The first output is you sending the 0.01 to your TAs.  The TAs now have that UTXO. The second output is the change that is being sent back to your wallet.  If you wanted you could have sent the change back to the original address, however this is considered bad practice from a privacy perspective so by default bitcoin-cli sent the change to a new address in your wallet. 
 
+This is a visual summary of what you are seeing in your wallet. If you would like to read a bit more on UTXOs and how this differs from an account model, this is a reasonable intro https://medium.com/@sunflora98/utxo-vs-account-balance-model-5e6470f4e0cf
 
-*** Assignment Deliverable 3: *** Find the transaction ID and submit it.
+![](Images/BitcoinUTXO.png)
 
+***Assignment Deliverable 3:*** Find the transaction ID in which you sent your TAs 0.01 BTC and submit it.
+
+### What just happened?
 https://testnet-faucet.mempool.co/
 
 To do this you will need to generate a new address. You will then need to setup some of the default configuration values for bitcoin-cli by adding these lines to your bitcoin.conf file.
