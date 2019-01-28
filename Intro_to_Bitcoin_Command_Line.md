@@ -1,3 +1,21 @@
+# Assignment
+This is assignment is structured to help you become familiar with blockchains and how they work, specifically Bitcoin.  Bitcoin uses a mechanism of unspent transaction outputs (UTXOs) for keeping track of values on the blockchain.  You will become familiar with wallets, address, private keys, signing transactions, as well as the UTXO model.  Through out this excercise there will be a number of ***Assignment Deliverable XX:*** . This will tell you what you need to turn in at the end of the assignment.  If there are more than one items required for that deliverable add a blank line between them. The format of the submitted work should be a text file with you name, date, assignment name, and UT ID. There should be sections of indicated by Assignment Deliverable XX: followed by the deliverable information.  For example:
+
+Karl, Kreder            01/25/2019             Intro_to_Bitcoin_Command_Line            UTID
+
+Assignment Deliverable 1:
+
+mhpt1x5Ro8SSMAQrkXwCj4F6sZd1xL9nsT
+
+H9v014McOc0+ESiyWMWJ2lBcGi+Vd+O0/IqSR0mdt15IEK7z158PKkD8JeRe5j4n29+Gyu2m5F3qPWwHQuAPS90= 
+
+Hello, Bitcoin
+
+Assignment Deliverable 2:
+
+....
+
+
 # Tools
 First, you will need to install the bitcoin client on your machine.  Directions for doing so can be found for the different operating systems in the links below.  Once you have validated that you have appropriately installed bitcoin, please proceed to the directions for configuring your installation to work with the test net before syncing. <br><br>
 
@@ -330,17 +348,12 @@ This will tell you information about the transactions, your unspent transaction 
 
 ## Making a transaction
 
-Now that you have your wallet setup and you have some testnet Bitcoin lets go ahead and make a simple transaction. To do this you will need to generate a new address. You will then need to setup some of the default configuration values for bitcoin-cli by adding these lines to your bitcoin.conf file.
+Now that you have your wallet setup and you have some testnet Bitcoin lets go ahead and make a simple transaction. For this transaction, you will be sending money to your TAs using `mgct4AqGBPNxigwWnbZnJLL8YpxTEkF3eA`. 
+
+You can send money simply by:
 
 ```BASH
-mintxfee=0.00001
-txconfirmtarget=6
-```
-
-Once these are set you can send money simply by:
-
-```BASH
-$ bc sendtoaddress mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK 0.01
+$ bc sendtoaddress mgct4AqGBPNxigwWnbZnJLL8YpxTEkF3eA 0.01
 49377bf7e2d6524ebaeef8eec67db3fe22dc57dcced9f63d5bd89e021b983edb
 ```
 The result is the transaction ID.  You can learn more about the transaction ID by using:
@@ -384,10 +397,22 @@ The result is the transaction ID.  You can learn more about the transaction ID b
 
 This shows that we sent 0.01 BTC to mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK.  However, there is a significant ammount of information that is hidden in the transaction hex field.  To learn more about it lets lookup the transaction on https://live.blockcypher.com/btc-testnet/ and see what we can figure out.
 
+
 ![](Images/BlockCypherTx.png)
+
+
+So what can we see from here.  There is one input to the transaction and two outputs from the transaction.  If we go use `bc listunspent` you will see that you no longer have one UTXO but you rather have two and the old UTXO is no longer displayed.  This is because the UTXO was consumed in this transaction when it was used as an input.  This also helps explains why there are two outputs.  The first output is you sending the 0.01 to your TAs.  The second output is the change that is being sent back to your wallet.  If you wanted you could have sent the change back to the original address, however this is considered bad practice from a privacy perspective so by default bitcoin-cli sent the change to a new address in your wallet. 
+
+
+*** Assignment Deliverable 3: *** Find the transaction ID and submit it.
 
 https://testnet-faucet.mempool.co/
 
+To do this you will need to generate a new address. You will then need to setup some of the default configuration values for bitcoin-cli by adding these lines to your bitcoin.conf file.
 
+```BASH
+mintxfee=0.00001
+txconfirmtarget=6
+```
 
 
