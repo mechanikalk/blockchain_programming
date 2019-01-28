@@ -293,7 +293,7 @@ If you search for this value in your wallet file you should find that it appears
 The beauty of HD wallets is that as long as you have this line, you can re-derive the rest of the file by changing the `hdkeypath`. This gives Bitcoin users the ability to manage a single secret but derive an infinite number of addresses which they can use easily. I will also mention here, that if you have actual bitcoin in your wallet, you do not want to **share this file or your masterkey with anyone**.  The ownership of bitcoin is the posession of this private key and the ability to sign transactions with it.  Therefore, if anyone else gets your private keys, or your wallet.dat file, they have your Bitcoin.
 
 ### Signing a message
-***Assignment Deliverable 1:*** You will need to sign a message with an account that is your UT ID and submit the message and the account to your TA. You will use this account for the rest of your deliverables.
+***Assignment Deliverable 1:*** You will need to sign a message, your UT ID, and submit the message and the account to your TA. You will use this same account for the deliverable 2.
 
 The heart of Bitcoin, blockchain, and any cryptocurrency is signing messages with private keys that can then be verified by using a public key.  A bitcoin address is a representation of a public key and a bitcoin transaction is like a check that tells the network to move money from one account to the other.  The check is signed using an addresses corresponding private key, and if the signature is valid, the miners update the ledger as long as the transaction meets the rules of consensus.
 
@@ -515,6 +515,7 @@ $ bc signrawtransaction $RAW_TX
   "complete": true
 }
 ```
+**NOTE:** If you recieve an error while using `signrawtransaction`, follow the directions to restart bitcoind with the specified flag. 
 
 We then record the signed transaction as follows:
 
