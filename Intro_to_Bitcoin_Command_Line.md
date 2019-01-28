@@ -226,9 +226,10 @@ $ echo $NEW_ADDRESS_1
 
 ## Get some 'testnet' Bitcoin
 
-The following website will send you some testnet bitcoin so that you can play around and learn how to use Bitcoin.  
+The following websites will send you some testnet bitcoin so that you can play around and learn how to use Bitcoin.  
 
 https://coinfaucet.eu/en/btc-testnet/
+https://testnet-faucet.mempool.co/
 
 Enter your bitcoin address and fillout the captcha. Once it shows that it is sending some testnet bitcoin you can check the status of the transaction at:
 
@@ -450,11 +451,11 @@ Lets go ahead and collect the strings we will need to make a transaction. Note t
 
 ```BASH
 $ UTXO_ID=1b315179a1f750e444cc410971f9bb2dcd1e5f0679aee70cb1741f0890799308
-$ UTXO_VOUT=0.08770812
+$ UTXO_VOUT=1
 $ NEW_ADDRESS=mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA
 ```
 
-To make build the transaction we will use `createrawtransaction` as follows:
+To build the transaction we will use `createrawtransaction` as follows:
 
 ```BASH
 $ bc createrawtransaction '''[ { "txid": "'$UTXO_ID'", "vout": '$UTXO_VOUT' } ]''' '''{ "'$NEW_ADDRESS'": 0.08760812 }'''
@@ -465,15 +466,76 @@ We can now set a value for our raw transaction hex:
 ```BASH
 RAW_TX=020000000108937990081f74b10ce7ae79065f1ecd2dbbf9710941cc44e450f7a17951311b0100000000ffffffff01ecad8500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
 ```
-
- 
-https://testnet-faucet.mempool.co/
-
-To do this you will need to generate a new address. You will then need to setup some of the default configuration values for bitcoin-cli by adding these lines to your bitcoin.conf file.
+To inspect the transaction before sending, use `decoderawtransaction`
 
 ```BASH
-mintxfee=0.00001
-txconfirmtarget=6
+$ bc decoderawtransaction $RAW_TX
+{
+  "txid": "ad777d35826763a6e920f06f51295507e34ad13eb7af9f43351d8894b1181043",
+  "hash": "ad777d35826763a6e920f06f51295507e34ad13eb7af9f43351d8894b1181043",
+  "version": 2,
+  "size": 85,
+  "vsize": 85,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "1b315179a1f750e444cc410971f9bb2dcd1e5f0679aee70cb1741f0890799308",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.08760812,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 ca073a588b2ea809fcfe4aae9f89fa73acf41177 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA"
+        ]
+      }
+    }
+  ]
+}
 ```
 
+Everything is looking good, so lets sign and broadcast the transaction.  We can do this using `signrawtransaction` and `sendrawtransaction` as follows:
 
+```BASH
+$ bc signrawtransaction $RAW_TX
+{
+  "hex": "0200000000010108937990081f74b10ce7ae79065f1ecd2dbbf9710941cc44e450f7a17951311b01000000171600148c20a264b1c162f388fe0e9992e2e87d1830adefffffffff01ecad8500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac024830450221009f9fb0c5b826b0a869e51c0318bc459e40e748a917fc2e13e07cea3a1dcc75b502200dcd4a1c4bc6173c2ec8127246586bb5456c0cf2196f2012d907d744d74f0015012103661b91afaa5ddcdecc10f4be5e282427f6f00672cb06293e802eeccd9364219400000000",
+  "complete": true
+}
+```
+
+We then record the signed transaction as follows:
+
+```BASH
+SIGNED_RAW_TX=0200000000010108937990081f74b10ce7ae79065f1ecd2dbbf9710941cc44e450f7a17951311b01000000171600148c20a264b1c162f388fe0e9992e2e87d1830adefffffffff01ecad8500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac024830450221009f9fb0c5b826b0a869e51c0318bc459e40e748a917fc2e13e07cea3a1dcc75b502200dcd4a1c4bc6173c2ec8127246586bb5456c0cf2196f2012d907d744d74f0015012103661b91afaa5ddcdecc10f4be5e282427f6f00672cb06293e802eeccd9364219400000000
+```
+
+Then we can broadcast the transaction and we will get the transaction ID as the return:
+
+```BASH
+$ bc sendrawtransaction $SIGNED_RAW_TX
+7a5f71cdc1e4f877f695ea35d7e1bee75283571544014f16f177f8d01155dd9e
+```
+So now we are really getting somewhere, you have succesfully built, signed, and broadcast a bitcoin transaction and you can check the status on blockcypher.
+
+***Assignment Deliverable 4:*** Report the transaction ID of your simple one input one outpu tx.
+
+## Going Further
+
+Now that you are familiar with Bitcoin transactions, you will plot out on your own for the rest of the assignment deliverables. Some resources you may find helpful include the https://bitcoin.org/en/developer-examples as well as https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line/blob/master/06_1_Sending_a_Transaction_to_a_Multisig.md
+
+***Assignment Deliverable 5:*** Build a transaction that has 2 inputs and two outputs. Report the raw transaction hex, the decoded transaction hex, and the transaction ID.
+
+***Assignment Deliverable 6:*** Build a 2-of-3 multisig transaction using bitcoin-cli. Report the raw transaction hex, the decoded transaction hex, and the transaction ID.
