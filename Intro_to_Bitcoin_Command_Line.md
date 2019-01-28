@@ -236,7 +236,7 @@ https://live.blockcypher.com/
 
 Select "Bitcoin Testnet" in the search menu and enter your Bitcoin address
 
-You should see a test faucet transaction sending money to your wallet.  If not, wait for a few minutes and refresh.  The reason that you will potentially need to wait is that you transaction must be included in a block.  Bitcoin blocks are found using a stochastic process of mining where blocks are typically found every 10 minutes.  There can be a significant deviation in any given block time ranging from 1 minute to 60 minutes is not atypical. To check on the progress of the Bitcoin testnet blocks you can go to https://live.blockcypher.com/btc-testnet/ and see when the last block was found.
+You should see a test faucet transaction sending money to your wallet.  If not, wait for a few minutes and refresh.  The reason that you will potentially need to wait is that you transaction must be included in a block.  Bitcoin blocks are found using a stochastic process of [mining](https://www.investopedia.com/tech/how-does-bitcoin-mining-work/) where blocks are typically found every 10 minutes.  There can be a significant deviation in any given block time ranging from 1 minute to 60 minutes is not atypical. To check on the progress of the Bitcoin testnet blocks you can go to https://live.blockcypher.com/btc-testnet/ and see when the last block was found.
 
 ### Explore your wallet while you wait
 Now that you have a wallet you will need to back it up.  Future assignmets will require you to "turn-in" your work by executing a transaction on the blockchain from one of the addresses in this account.  Therefore, you will need to back-up your wallet. You can do this by running:
@@ -335,7 +335,7 @@ you should see a result similar to the following:
 }
 ```
 
-You will note that the "balance" field is no longer 0 because you have recieved testnet Bitcoins from the faucet. You can see that your wallet current has 1 transaction and has a keypool of 999 keys. To learn more about the wallet.  Try out these commands:
+You will note that the "balance" field is no longer 0 because you have recieved testnet Bitcoins from the faucet. You can see that your wallet currently has 1 transaction and has a keypool of 999 keys. To learn more about the wallet.  Try out these commands:
 
 ```BASH
 bc listtransactions
@@ -349,7 +349,7 @@ This will tell you information about the transactions, your unspent transaction 
 
 ## Making a simple transaction
 
-Now that you have your wallet setup and you have some testnet Bitcoin lets go ahead and make a simple transaction. For this transaction, you will be sending money to your TAs using `mgct4AqGBPNxigwWnbZnJLL8YpxTEkF3eA`. 
+Now that you have your wallet setup and you have some testnet Bitcoin lets go ahead and make a simple transaction. For this transaction, you will be sending money to your TAs using this address `mgct4AqGBPNxigwWnbZnJLL8YpxTEkF3eA`. 
 
 You can send money simply by:
 
@@ -409,9 +409,17 @@ This is a visual summary of what you are seeing in your wallet. If you would lik
 
 ![](Images/BitcoinUTXO.png)
 
+In addition to the UTXOs we can also see that a fee was paid to the miners so that they include the transaction in a mined block. In this case the fee was 0.00000168.  The value of the input was 0.07705682 and the value of the outputs was 0.06705514 and 0.01.  The input value is equal to the sum of all of the output values and the transaction fee.  Therefore, no money was created or destroyed in this transaction. 
+
 ***Assignment Deliverable 3:*** Find the transaction ID in which you sent your TAs 0.01 BTC and submit it.
 
 ### What just happened?
+
+To make this transaction happen alot of things are being done for you by bitcoin-cli behind the scene. This includes selecting which UTXO to spend, calculating the transaction fee, building the transaction, signing the transaction, and broadcasting the transaction.  In the subsequent sections you will learn all about this process because we are going to build a transaction piece by piece.
+
+# Building transactions
+
+
 https://testnet-faucet.mempool.co/
 
 To do this you will need to generate a new address. You will then need to setup some of the default configuration values for bitcoin-cli by adding these lines to your bitcoin.conf file.
