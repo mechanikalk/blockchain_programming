@@ -419,7 +419,54 @@ To make this transaction happen alot of things are being done for you by bitcoin
 
 # Building transactions
 
+## One input, One output
 
+The simplest transaction that we can build involves using a single input and a single output.  First we will need to list all of our outputs and choose an input to send.
+
+```BASH
+$ bc listunspent
+[
+  {
+    "txid": "1b315179a1f750e444cc410971f9bb2dcd1e5f0679aee70cb1741f0890799308",
+    "vout": 1,
+    "address": "2Mu8ciAruGtBrBCQVRqh5SsZBk3G2Nh7Ns9",
+    "account": "",
+    "redeemScript": "00148c20a264b1c162f388fe0e9992e2e87d1830adef",
+    "scriptPubKey": "a91414b04eaf44e821cb570a07c74e37ad23189c1ca487",
+    "amount": 0.08770812,
+    "confirmations": 48,
+    "spendable": true,
+    "solvable": true,
+    "safe": true
+  }
+ ]
+ ```
+ 
+At this point the choice of which UTXO to use should be pretty easy, because you should only have 1.  However, this choice can become complex when you are managing a wallet with many inputs and outputs.  A general rule is that you want to use the oldest UTXO first. However, this can be complicated in situations where you want to manage the amount of 'dust' (small value UTXOs) in your wallet.  Each time you include a transaction into the blockchain you are paying a per byte transaction fee.  Therefore, you want to keep your UTXOs organized is a way that makes economic sense.  If I send a transaction for this UTXO worth 0.08770812 and I need to send 0.0876 with a tx fee of 0.0001 I will end up with change of 0.00000812.  This change is not very "good" because of its size relative to reasonable transaction fees.  I could include this input with another input to lower the number of bytes per input in my transaction making this a more economically viable UTXO. The fact remains, that I want to make try and use my UTXOs wisely so as not to create 'dust'.
+ 
+Lets go ahead and pick this as the UTXO we want to use in our transaction. Since we only want to have one output, we will send the entire amount of this UTXO to a new address minus the transaction fee.  The transaction fee is not explicitly set, but is rather the cumulative difference between the inputs and the ouputs.  Therefore, you want to be careful with you math as not to pay an astronomically high fee.
+
+Lets go ahead and collect the strings we will need to make a transaction. Note that my output value is 0.0001 lower than my input reflecting the value of the transaction fee.
+
+```BASH
+$ UTXO_ID=1b315179a1f750e444cc410971f9bb2dcd1e5f0679aee70cb1741f0890799308
+$ UTXO_VOUT=0.08770812
+$ NEW_ADDRESS=mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA
+```
+
+To make build the transaction we will use `createrawtransaction` as follows:
+
+```BASH
+$ bc createrawtransaction '''[ { "txid": "'$UTXO_ID'", "vout": '$UTXO_VOUT' } ]''' '''{ "'$NEW_ADDRESS'": 0.08760812 }'''
+020000000108937990081f74b10ce7ae79065f1ecd2dbbf9710941cc44e450f7a17951311b0100000000ffffffff01ecad8500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
+```
+We can now set a value for our raw transaction hex:
+
+```BASH
+RAW_TX=020000000108937990081f74b10ce7ae79065f1ecd2dbbf9710941cc44e450f7a17951311b0100000000ffffffff01ecad8500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
+```
+
+ 
 https://testnet-faucet.mempool.co/
 
 To do this you will need to generate a new address. You will then need to setup some of the default configuration values for bitcoin-cli by adding these lines to your bitcoin.conf file.
