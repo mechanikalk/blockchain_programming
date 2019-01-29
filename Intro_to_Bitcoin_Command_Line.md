@@ -112,7 +112,7 @@ If there are no errors during installation proceed to configuration to configure
 You will now need to create a configuration file to run the Bitcoin daemon connected to the testnet.  The following are the default locations for configuration files for both MacOS and Linux.<br>
  
 **Linux**	$HOME/.bitcoin/bitcoin.conf<br><br>
-**Mac OSX**	$HOME/Library/Application Support/Bitcoin/bitcoin.conf<br><br>
+**Mac OSX**	$HOME/Library/Application\ Support/Bitcoin/bitcoin.conf<br><br>
 
 Use your favorite text editor or IDE to create a the bitcoin.conf file in the appropriate location.  Write the following to the bitcoin.conf file and save.<br>
 
@@ -284,7 +284,7 @@ NEW_ADDRESS_2=$(bitcoin-cli getnewaddress "" legacy)
 $ echo $NEW_ADDRESS_1
 mhpt1x5Ro8SSMAQrkXwCj4F6sZd1xL9nsT
 ```
-If you search for this value in your wallet file you should find that it appears in the line with `hdkeypath=m/0'/0'/1'`.  This is the second address in your HD wallet.  You can use address in Bitcoin multiple times, howeever privacy is better perseved if addresses are not reused. This is one of the reasons for an HD wallet.  If you look at the top of the file you will see that there is similar to:
+If you search for this value in your wallet file you should find that it appears in the line with `hdkeypath=m/0'/0'/1'`.  This is the second address in your HD wallet.  You can use address in Bitcoin multiple times, however privacy is better perseved if addresses are not reused. This is one of the reasons for an HD wallet.  If you look at the top of the file you will see that there is similar to:
 
 ```BASH
 # extended private masterkey: tprv8ZgxMBicQKsPdNtUXyQ3x2h9AJpp1EDayZsSHFj52HXPjRdehHDqADx7kJ8ZNf7AhbchZXAj2CRczMYMVXxXeSNPkwWYhjESRRDR98TSwnN
@@ -397,7 +397,7 @@ The result is the transaction ID.  You can learn more about the transaction ID b
 }
 ```
 
-This shows that we sent 0.01 BTC to mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK.  However, there is a significant ammount of information that is hidden in the transaction hex field.  To learn more about it lets lookup the transaction on https://live.blockcypher.com/btc-testnet/ and see what we can figure out.
+This shows that we sent 0.01 BTC to mpzUA2rLE64aTwSDbVC8Ght6gADbruTTqK.  However, there is a significant amount of information that is hidden in the transaction hex field.  To learn more about it lets lookup the transaction on https://live.blockcypher.com/btc-testnet/ and see what we can figure out.
 
 
 ![](Images/BlockCypherTx.png)
@@ -416,7 +416,7 @@ In addition to the UTXOs we can also see that a fee was paid to the miners so th
 
 ### What just happened?
 
-To make this transaction happen alot of things are being done for you by bitcoin-cli behind the scene. This includes selecting which UTXO to spend, calculating the transaction fee, building the transaction, signing the transaction, and broadcasting the transaction.  In the subsequent sections you will learn all about this process because we are going to build a transaction piece by piece.
+To make this transaction happen a lot of things are being done for you by bitcoin-cli behind the scene. This includes selecting which UTXO to spend, calculating the transaction fee, building the transaction, signing the transaction, and broadcasting the transaction.  In the subsequent sections you will learn all about this process because we are going to build a transaction piece by piece.
 
 # Building transactions
 
