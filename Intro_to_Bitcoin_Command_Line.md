@@ -547,4 +547,4 @@ Now that you are familiar with Bitcoin transactions, you will plot out on your o
 
 Using Bitcoin in the command line is one of the simplest ways to get started using bitcoin.  However, there are limitations due to dealing with JSON.  These can be made easier by leveraging a command line JSON interpreter tool. One such tool is known as JQ.  The JQ repo is found here: https://stedolan.github.io/jq/ .  Feel free to download and install JQ and than go through the JQ tutorial.  JQ is useful for creating more fluid and robust shell scripts for creating bitcoin transactions.  
 
-
+***Assignment Deliverable 8:*** Using JQ create a script that will send money to a new 2-of-3 multisig to a new address. Report the script, and the transaction ID.
