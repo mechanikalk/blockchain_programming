@@ -57,6 +57,25 @@ See [dependencies.md](dependencies.md) for a complete overview.
 3.  It is recommended to build and run the unit tests:
 
         make check
+        
+Alternate installation:
+
+1. Download bitcoind 
+       
+       curl -O https://bitcoin.org/bin/bitcoin-core-0.17.1/bitcoin-0.17.1-osx64.tar.gz
+        
+2. Extract bitcoind and its binaries
+       
+       tar -zxf bitcoin-0.17.1-osx64.tar.gz
+
+3. Move executables into default path
+       
+       sudo mkdir -p /usr/local/bin
+       sudo cp bitcoin-0.17.1/bin/bitcoin* /usr/local/bin/.
+
+4. Clean up directory we've been working in
+       
+       rm -rf bitcoin-0.17.1*
 
 ## Linux
 The following instructions describe installing Bitcoin Core on Linux systems. Perform the following in your terminal or emulator.
