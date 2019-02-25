@@ -473,6 +473,7 @@ $ UTXO_ID=1b315179a1f750e444cc410971f9bb2dcd1e5f0679aee70cb1741f0890799308
 $ UTXO_VOUT=1
 $ NEW_ADDRESS=mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA
 ```
+NOTE: vout is the index of the output that you are consuming in your new transactions.  You can find the proper vout to use by looking at the one listed when you use listunspent.  The value of vout used in signrawtransaction should be the same as the vout listed for the txid that you choose to use.  The example given uses 1 because that was the 2nd (zero indexed) output used as the input for that txid.
 
 To build the transaction we will use `createrawtransaction` as follows:
 
