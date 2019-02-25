@@ -1,11 +1,26 @@
-#Bitcoin Script
-##Install btcdeb
+# Assignment
+This is assignment is structured to help you become familiar Bitcoin script.  Bitcoin script is the programming language of bitcoin. Although it is not Turing complete a large number of useful scripts can be created for many different use cases.   Through out this excercise there will be a number of ***Assignment Deliverable XX:*** . This will tell you what you need to turn in at the end of the assignment.  If there are more than one items required for that deliverable add a blank line between them. The format of the submitted work should be a text file with you name, date, assignment name, and UT ID. There should be sections of indicated by Assignment Deliverable XX: followed by the deliverable information.  For example:
+
+Karl, Kreder            01/25/2019             Intro_to_Bitcoin_Command_Line            UTID
+
+Assignment Deliverable 1:
+
+mhpt1x5Ro8SSMAQrkXwCj4F6sZd1xL9nsT
+
+H9v014McOc0+ESiyWMWJ2lBcGi+Vd+O0/IqSR0mdt15IEK7z158PKkD8JeRe5j4n29+Gyu2m5F3qPWwHQuAPS90= 
+
+Hello, Bitcoin
+
+Assignment Deliverable 2:
+
+# Bitcoin Script
+## Install btcdeb
 The first thing that we are going to need to do is install a bitcoin script interpreter called btcdeb which stands for bitcoin debug.
 Please go to the github repository and follow the instructions for either linux or mac.  Make sure you install dependencies before trying to install btcdeb.  Otherwise this process should be very straight forward.
 
 https://github.com/kallewoof/btcdeb
 
-##Signature script and pubKey Scripts
+## Signature script and pubKey Scripts
 
 Before we get into bitcoin script we need to do a brief review on how tokens are moved on chain.  A token is encumbered by a locking script known as a pubKey script which can also be referred to as scriptPubKey.  To move a token, a signature script (scriptSig) must be presented which satisfies the conditions of the locking pubKey script.  Once a proper signature script is presented, the unspent transaction output (UTXO) is consumed with the signature script and one or more new UTXOs are created. These scripts are written using what is known as Bitcoin script and the scripts are evaluated by nodes running the Bitcoin blockchain. When a token is moved the scripts are evaluated in the following way.
 
@@ -18,7 +33,7 @@ The Bitcoin interpretor is a stack based language that does not allow for loops 
 Therefore, in the above example the scriptSig is loaded into the stack first followed by the scriptPubKey.  Once fully evaluated if the scriptSig causes a non-zero result the transaciton is processed.
 
 
-##Pays to PubKey (P2PK) script
+## Pays to PubKey (P2PK) script
 P2PK scripts are the simplest form of a bitcoin encumbrance.  Tokens are locked by a script which requires a signature from a corresponding private key to spend the tokens.  The format of a P2PK script is:
 
 ```BASH
@@ -294,7 +309,7 @@ script                                                             |            
 
 This evaluates to one again so now we know that the transaction was correct and the script that was used to validate this transaction was indeed a P2PK of the form `<Signature> <Public Key> OP_CHECKSIG`.  We won't have you try and build a P2PK because it would require some other tools and they are not currently very useful because of the introduction of P2PKH. 
 
-##Pays To PubKey Hash (P2PKH) script
+## Pays To PubKey Hash (P2PKH) script
 P2PKH was introduced because it allows people to not reveal their public key prior to spending an output.  If there ever is a weakness in elliptic curve cryptography and the public keys that are encumbering all the funds are chain are publically known, this could allow anyone that is able to leverage the ECC exploit to move all on chain balances.  By using a hash to encumber funds rather than an public address there would also need to be a compromise to SHA256 before money locked on chain can be moved. Therefore these are currently the most common scripts used in bitcoin today.
 
 Lets go and look at the simple single input to single ouput transactions that we made in the previous assignment.  The example in the tutorial was TxID 
@@ -303,7 +318,7 @@ btcdeb --tx=020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf50
 
 btcdeb --tx=0.08750812:020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 '[OP_DUP OP_HASH160 ca073a588b2ea809fcfe4aae9f89fa73acf41177 OP_EQUALVERIFY OP_CHECKSIG]' 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e01 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
 
-###Debugging Errors in btcdeb
+### Debugging Errors in btcdeb
 
 
 
