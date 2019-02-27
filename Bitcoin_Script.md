@@ -318,16 +318,6 @@ btcdeb --tx=020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf50
 
 btcdeb --tx=0.08750812:020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 '[OP_DUP OP_HASH160 ca073a588b2ea809fcfe4aae9f89fa73acf41177 OP_EQUALVERIFY OP_CHECKSIG]' 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e01 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
 
-### Debugging Errors in btcdeb
-
-
-
-
-
-
-
-
-
 
 Before we begin writing our own bitcoin scripts lets look at a couple of examples that exist by using blockcypher.  The first thing that we will look at are P2PKH scripts which are the most common type of script used in bitcoin today.  This will make you dig into the component pieces of a transaction more and give you your first example of a successfully running bitcoin transaction script.
 
@@ -423,14 +413,17 @@ Looking at this we can see that this is an example of a standard P2PKH script.  
 
 3045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb[ALL] 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
 
-The 
+### Debugging Errors in btcdeb
 
-Tools
-https://github.com/kallewoof/btcdeb
 
-Introduction
-Examples
-Pay-to-Pubkey-Hash
-m-of-n Multi-Signature Scripts
-Escrow Account
-Payment Channels
+
+
+
+
+
+
+
+
+
+# Tutorial on Advanced Scripting
+https://www.youtube.com/watch?v=8FeAXjkmDcQ
