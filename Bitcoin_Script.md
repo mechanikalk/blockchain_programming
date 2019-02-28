@@ -319,55 +319,51 @@ btcdeb --tx=020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf50
 btcdeb --tx=0.08750812:020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 '[OP_DUP OP_HASH160 ca073a588b2ea809fcfe4aae9f89fa73acf41177 OP_EQUALVERIFY OP_CHECKSIG]' 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e01 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
 
 
-Before we begin writing our own bitcoin scripts lets look at a couple of examples that exist by using blockcypher.  The first thing that we will look at are P2PKH scripts which are the most common type of script used in bitcoin today.  This will make you dig into the component pieces of a transaction more and give you your first example of a successfully running bitcoin transaction script.
+Before we begin writing our own bitcoin scripts lets look at a couple of examples that exist by using blockcypher. This will make you dig into the component pieces of a transaction more and give you your first example of a successfully running bitcoin transaction script.
 
-https://api.blockcypher.com/v1/btc/test3/txs/7a5f71cdc1e4f877f695ea35d7e1bee75283571544014f16f177f8d01155dd9e?includeHex=true
+https://api.blockcypher.com/v1/btc/test3/txs/afba5550cf1f9957d38bd3704947e745a47861e7fa375cea76638b38537ff545?includeHex=true
 
 {
-  "block_hash": "0000000000000082ebf181715da77d4883f85be010ca8151b294c942a5c3f1ec",
-  "block_height": 1454213,
-  "block_index": 8,
-  "hash": "7a5f71cdc1e4f877f695ea35d7e1bee75283571544014f16f177f8d01155dd9e",
-  "hex": "0200000000010108937990081f74b10ce7ae79065f1ecd2dbbf9710941cc44e450f7a17951311b01000000171600148c20a264b1c162f388fe0e9992e2e87d1830adefffffffff01ecad8500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac024830450221009f9fb0c5b826b0a869e51c0318bc459e40e748a917fc2e13e07cea3a1dcc75b502200dcd4a1c4bc6173c2ec8127246586bb5456c0cf2196f2012d907d744d74f0015012103661b91afaa5ddcdecc10f4be5e282427f6f00672cb06293e802eeccd9364219400000000",
+  "block_hash": "0000000000000068163f3e1e1932d39d470a9e7417a06d116b091b6f18501fe0",
+  "block_height": 1481272,
+  "block_index": 1,
+  "hash": "afba5550cf1f9957d38bd3704947e745a47861e7fa375cea76638b38537ff545",
+  "hex": "0200000001e675a287b8143df4ab739e469b0aab00adb9ccd55b6846f5399fda64da410fd9000000006b483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01dc868500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000",
   "addresses": [
-    "2Mu8ciAruGtBrBCQVRqh5SsZBk3G2Nh7Ns9",
     "mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA"
   ],
-  "total": 8760812,
+  "total": 8750812,
   "fees": 10000,
-  "size": 108,
+  "size": 192,
   "preference": "high",
-  "relayed_by": "173.0.157.36:18333",
-  "confirmed": "2019-01-28T07:18:41Z",
-  "received": "2019-01-28T07:16:58.928Z",
+  "relayed_by": "54.38.142.36:18333",
+  "confirmed": "2019-02-24T19:27:05Z",
+  "received": "2019-02-24T19:14:37.379Z",
   "ver": 2,
   "double_spend": false,
   "vin_sz": 1,
   "vout_sz": 1,
-  "confirmations": 27036,
+  "confirmations": 702,
   "confidence": 1,
   "inputs": [
     {
-      "prev_hash": "1b315179a1f750e444cc410971f9bb2dcd1e5f0679aee70cb1741f0890799308",
-      "output_index": 1,
-      "script": "1600148c20a264b1c162f388fe0e9992e2e87d1830adef",
-      "output_value": 8770812,
+      "prev_hash": "d90f41da64da9f39f546685bd5ccb9ad00ab0a9b469e73abf43d14b887a275e6",
+      "output_index": 0,
+      "script": "483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0",
+      "output_value": 8760812,
       "sequence": 4294967295,
       "addresses": [
-        "2Mu8ciAruGtBrBCQVRqh5SsZBk3G2Nh7Ns9"
+        "mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA"
       ],
-      "script_type": "pay-to-script-hash",
-      "age": 1454160,
-      "witness": [
-        "30450221009f9fb0c5b826b0a869e51c0318bc459e40e748a917fc2e13e07cea3a1dcc75b502200dcd4a1c4bc6173c2ec8127246586bb5456c0cf2196f2012d907d744d74f001501",
-        "03661b91afaa5ddcdecc10f4be5e282427f6f00672cb06293e802eeccd93642194"
-      ]
+      "script_type": "pay-to-pubkey-hash",
+      "age": 1457005
     }
   ],
   "outputs": [
     {
-      "value": 8760812,
+      "value": 8750812,
       "script": "76a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac",
+      "spent_by": "b3d970bbea3bc92c6b00d7cfdfc447ad35aa14d27b3e699e4b9cbbe2113f53b3",
       "addresses": [
         "mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA"
       ],
@@ -410,20 +406,427 @@ Looking at this we can see that this is an example of a standard P2PKH script.  
     "safe": true
   },
 
+To create the signature script we can leverage `createrawtransaction` followed by `signrawtransaction`.  Once the signed transaction is created we can use `decoderawtransaction` to see the transaction that we have created but not yet broadcast.
 
-3045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb[ALL] 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+```BASH
+> $ bc decoderawtransaction 0200000001e675a287b8143df4ab739e469b0aab00adb9ccd55b6846f5399fda64da410fd9000000006b483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01dc868500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
+{
+  "txid": "afba5550cf1f9957d38bd3704947e745a47861e7fa375cea76638b38537ff545",
+  "hash": "afba5550cf1f9957d38bd3704947e745a47861e7fa375cea76638b38537ff545",
+  "version": 2,
+  "size": 192,
+  "vsize": 192,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "d90f41da64da9f39f546685bd5ccb9ad00ab0a9b469e73abf43d14b887a275e6",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "3045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb[ALL] 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0",
+        "hex": "483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.08750812,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 ca073a588b2ea809fcfe4aae9f89fa73acf41177 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mywBT1RBVqhzCTQpc3pycbJkM7v1tagQdA"
+        ]
+      }
+    }
+  ]
+}
+
+```
+
+If you look in the "scriptSig" filed you will find the signature as well as the pubkey which will allow you to unlock and spend the transaction. 
+
+The data in this filed can be interpreted as follows:
+```BASH
+<signature> = 3045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb 
+<pubkey> = 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+```
+
+This should be a valid unlocking script for a P2PKH. The simple way to check this works prior to broadcasting the transaction is to use `--tx=` and `--txin=` prior to broadcasting the transaction.  Lets look at each step and make sure we understand what is happening.
+
+```BASH
+> $ btcdeb --tx=020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 --txin=0200000001e675a287b8143df4ab739e469b0aab00adb9ccd55b6846f5399fda64da410fd9000000006b483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01dc868500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
+btcdeb -- type `btcdeb -h` for start up options
+got transaction b3d970bbea3bc92c6b00d7cfdfc447ad35aa14d27b3e699e4b9cbbe2113f53b3:
+CTransaction(hash=b3d970bbea, ver=2, vin.size=1, vout.size=1, nLockTime=0)
+    CTxIn(COutPoint(afba5550cf, 0), scriptSig=483045022100afe2d4708627)
+    CScriptWitness()
+    CTxOut(nValue=0.08740812, scriptPubKey=a914e995733209fce5e8b54c4e2744)
+
+got input tx #0 afba5550cf1f9957d38bd3704947e745a47861e7fa375cea76638b38537ff545:
+CTransaction(hash=afba5550cf, ver=2, vin.size=1, vout.size=1, nLockTime=0)
+    CTxIn(COutPoint(d90f41da64, 0), scriptSig=483045022100ac7169d5d135)
+    CScriptWitness()
+    CTxOut(nValue=0.08750812, scriptPubKey=76a914ca073a588b2ea809fcfe4aae)
+
+input tx index = 0; tx input vout = 0; value = 8750812
+8 op script loaded. type `help` for usage information
+script                                                             |  stack
+-------------------------------------------------------------------+--------
+3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794... |
+038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0 |
+<<< scriptPubKey >>>                                               |
+OP_DUP                                                             |
+OP_HASH160                                                         |
+ca073a588b2ea809fcfe4aae9f89fa73acf41177                           |
+OP_EQUALVERIFY                                                     |
+OP_CHECKSIG                                                        |
+#0000 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e01
+btcdeb> step
+    <> PUSH stack 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e01
+```
+
+The <sigScript> is queued followed by the <scriptPubKey> on the left under the script column.  The stack colum is on the right.  We can see that the stack started empty.  The interpretor starts running the script by evaluating the items that have been placed into the script column one-by-one.  The first item is a data field so it is pushed to the stack.
+
+```BASH
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0 | 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794...
+<<< scriptPubKey >>>                                               |
+OP_DUP                                                             |
+OP_HASH160                                                         |
+ca073a588b2ea809fcfe4aae9f89fa73acf41177                           |
+OP_EQUALVERIFY                                                     |
+OP_CHECKSIG                                                        |
+#0001 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+btcdeb>
+    <> PUSH stack 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+```
+
+The second item, the pubkey, is also a data field so it is pushed to the stack
+
+```BASH
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_DUP                                                             | 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+OP_HASH160                                                         | 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794...
+ca073a588b2ea809fcfe4aae9f89fa73acf41177                           |
+OP_EQUALVERIFY                                                     |
+OP_CHECKSIG                                                        |
+#0003 OP_DUP
+btcdeb>
+    <> PUSH stack 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+```
+
+The next item is a command OP_DUP which takes the top item in the stack, duplicates it, and then pushes the result. So this one command interacts with the stack 1 time when it pushes the duplicated entry, which we can see by the `<> PUSH stack 38e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0`
+
+```BASH
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_HASH160                                                         | 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+ca073a588b2ea809fcfe4aae9f89fa73acf41177                           | 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+OP_EQUALVERIFY                                                     | 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794...
+OP_CHECKSIG                                                        |
+#0004 OP_HASH160
+btcdeb>
+    <> POP  stack
+    <> PUSH stack ca073a588b2ea809fcfe4aae9f89fa73acf41177
+```
+
+The next item is also a command OP_HASH160.  This command will pop an entry from the stack, computed the MD160 hash, and the push the result back onto the stack.  This command interacts with the stack 2 times as we can see with the `POP stack` and `PUSH stack` entries.
+
+```BASH
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+ca073a588b2ea809fcfe4aae9f89fa73acf41177                           |                           ca073a588b2ea809fcfe4aae9f89fa73acf41177
+OP_EQUALVERIFY                                                     | 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+OP_CHECKSIG                                                        | 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794...
+#0005 ca073a588b2ea809fcfe4aae9f89fa73acf41177
+btcdeb>
+    <> PUSH stack ca073a588b2ea809fcfe4aae9f89fa73acf41177
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_EQUALVERIFY                                                     |                           ca073a588b2ea809fcfe4aae9f89fa73acf41177
+OP_CHECKSIG                                                        |                           ca073a588b2ea809fcfe4aae9f89fa73acf41177
+                                                                   | 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+                                                                   | 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794...
+#0006 OP_EQUALVERIFY
+btcdeb>
+    <> POP  stack
+    <> POP  stack
+    <> PUSH stack 01
+    <> POP  stack
+```
+
+The next item is also a command which is OP_EQUALVERIFY.  This pops the top two items off the stack, compares them, pushes the result to the stack.  It then pops the top item if the result is one, else it stops the script with a return of 0.  If we used OP_EQUAL rather than OP_EQUALVERIFY, the operation would end after pushed 01 to the stack.  We can see that this operation interacts with the stack 4 times.
+
+```BASH
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_CHECKSIG                                                        | 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
+                                                                   | 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794...
+#0007 OP_CHECKSIG
+btcdeb>
+    <> POP  stack
+    <> POP  stack
+    <> PUSH stack 01
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+                                                                   |                                                                 01
+
+```
+
+Finally, we have OP_CHECKSIG.  This operation will check and make sure that the signature of the transaction is valid against the public key.  To do this the script behind the scenes needs to compute the transaction hash to enable it to validate the signature.  If for some reason the hash of the tx is different this will return false.
+
+We have now succesfully used btcdeb to check a transaction prior to sending it to the network!
 
 ### Debugging Errors in btcdeb
 
+Getting a false return on an OP_CHECKSIG can be really frustrating because you can have the exact same stack, and get two different results.  To help understand why this is happening you can use a couple debug commands included in btcdeb.  These are `DEBUG_SIGNING` and `DEBUG_SIGHASH` and they are used like this.
 
+```BASH
+DEBUG_SIGNING=1 DEBUG_SIGHASH=1 btcdeb --tx=020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 --txin=0200000001e675a287b8143df4ab739e469b0aab00adb9ccd55b6846f5399fda64da410fd9000000006b483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01dc868500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
+```
 
+This can be incrediably helpful as you get into writing scripts, because if you drop a byte by accident, or mistype a tx value by one digit, this problem will arise, and theses functions will provide output to allow you to quickly track them down.
 
+## Convert P2SH to P2PKH
 
+Now that we have a feel for btcdeb and what it can do, lets go ahead and try and create a custom bit of script and broadcast it to the network.  We can do this more easily by leveraging the functions of btcdeb to do the heavy lifting of creating transactions and signatures.  This will allow us to only have to deal with the bytecode associated with the scriptPubKey itself.
 
+The simplest thing that we can do is change one standard script type to another standard script type but do it manually.
 
+Lets go ahead and create a new key using `NEW_ADDRESS_11=$(bc getnewaddress)`.  This will create a P2SH key by defualt.  Then lets go ahead and pick a single input and create a transaction sending money to this address using `createrawtransaction`.
 
+Once we have this lets inspect our raw transaction:
 
+```BASH
+{
+  "txid": "c826fe4e8ed1da337644d8073fb74ed0646bac9148f86421f8623c8500c47cad",
+  "hash": "c826fe4e8ed1da337644d8073fb74ed0646bac9148f86421f8623c8500c47cad",
+  "version": 2,
+  "size": 83,
+  "vsize": 83,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "70952c0fc94e596ddf9779167a1959d299ca6edb39a76b71fba2674aecc7fe83",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.09576917,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 3fc0a0e29729146fdf3b06eb2face623cb023464 OP_EQUAL",
+        "hex": "a9143fc0a0e29729146fdf3b06eb2face623cb02346487",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2My4KKRqrqPwkc9c7RjnHUH31dLCjXE56Bo"
+        ]
+      }
+    }
+  ]
+}
 
+```
+
+To turn this into a P2PKH we will need to do a couple of things.  We will need to modify the scriptPubKey to confirm to the P2PKH standard as well as compute a new MD160 hash.  To do this we will need to open up our wallet.dat file and search for the public key that we are using as the sending address.  We should copy the public key which in this case looks like `cR6PrMEcvT7RTamuW63oNCYc3AD8UznFbBQuPttXoBbuNJfaUiBT`.  If you get a value starting with 0014 you are finding the wrong value.  Once we have the pubkey we will need to find its MD160 hash which we can do quicly and conveniently using a quick script in btcdeb.
+
+```BASH
+> $ btcdeb '[cR6PrMEcvT7RTamuW63oNCYc3AD8UznFbBQuPttXoBbuNJfaUiBT OP_HASH160]'
+btcdeb -- type `btcdeb -h` for start up options
+valid script
+2 op script loaded. type `help` for usage information
+script                                                             |  stack
+-------------------------------------------------------------------+--------
+63523650724d45637654375254616d755736336f4e43596333414438557a6e4... |
+OP_HASH160                                                         |
+#0000 63523650724d45637654375254616d755736336f4e43596333414438557a6e4662425175507474586f4262754e4a666155694254
+btcdeb>
+btcdeb> stack
+- empty stack -
+btcdeb> step
+    <> PUSH stack 63523650724d45637654375254616d755736336f4e43596333414438557a6e4662425175507474586f4262754e4a666155694254
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_HASH160                                                         | 63523650724d45637654375254616d755736336f4e43596333414438557a6e4...
+#0001 OP_HASH160
+btcdeb>
+    <> POP  stack
+    <> PUSH stack 15e1ccc506e49174362a5c04c67e169a5ecef4de
+script                                                             |                                                             stack
+-------------------------------------------------------------------+-------------------------------------------------------------------
+                                                                   |                           15e1ccc506e49174362a5c04c67e169a5ecef4de
+```
+
+This gives us the MD160 Hash of `15e1ccc506e49174362a5c04c67e169a5ecef4de`
+
+Now that we have the MD160 we will need to disect our raw transaction and modify the byte code.
+
+```BASH
+020000000183fec7ec4a67a2fb716ba739db6eca99d259197a167997df6d594ec90f2c95700000000000ffffffff01d521920000000000
+
+17      //Length of scriptPubKey
+a9      //OP_HASH160
+14      //Length of hash in bytes
+3fc0a0e29729146fdf3b06eb2face623cb023464  //Redeem script hash
+87      //OP_EQUAL
+00000000 //TIMELOCK
+```
+
+We don't need to worry about the first half of the transaction for now.  The second half is the scriptPubKey which I have parsed by referring to the bitcoin op_codes.
+
+I can do the following to modify it to make it a standard P2PKH script.
+
+```BASH
+020000000183fec7ec4a67a2fb716ba739db6eca99d259197a167997df6d594ec90f2c95700000000000ffffffff01d521920000000000
+19     //Length of scriptPubKey
+76     //OP_HASH160
+a9     //OP_HASH160
+14     //Length of hash in bytes
+15e1ccc506e49174362a5c04c67e169a5ecef4de  //MD160 hash of publickey
+88     //OP_EQUAL
+ac     //OP_EQUAL
+00000000 //TIMELOCK
+```
+
+I can then inspect my new transaction using decode as below.
+
+```BASH
+> $ bc decoderawtransaction 020000000183fec7ec4a67a2fb716ba739db6eca99d259197a167997df6d594ec90f2c95700000000000ffffffff01d5219200000000001976a91415e1ccc506e49174362a5c04c67e169a5ecef4de88ac00000000
+{
+  "txid": "9aea31a1a1e089414cca398ad53fefec90d1514cb46eec0f86d279a1fe945d27",
+  "hash": "9aea31a1a1e089414cca398ad53fefec90d1514cb46eec0f86d279a1fe945d27",
+  "version": 2,
+  "size": 85,
+  "vsize": 85,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "70952c0fc94e596ddf9779167a1959d299ca6edb39a76b71fba2674aecc7fe83",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.09576917,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 15e1ccc506e49174362a5c04c67e169a5ecef4de OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a91415e1ccc506e49174362a5c04c67e169a5ecef4de88ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mhWeyw5kUN71Q1Ys32D2hamYDvwXE5RB2e"
+        ]
+      }
+    }
+  ]
+}
+```
+
+I can see this is a valid transaction and it is interpreted correctly.  Therefore lets go ahead and sign and send it. I end up getting the TxID `d575e3ec984fd6b777a26944a10ae174e0a1e76c0087a82aae0d46057be322c9`.  I can go ahead and look it up on blockcypher.  Great, but there is a problem.  This transaction will not show up in your wallet.   The wallet software has not recorded a P2PKH key in your wallet against this public key, only a P2SH key.  Therefore, we will need to find the pubkey in your wallet.dat file and then remove the address that starts with a 2 and replace it with recieve address that is displayed on blockcypher that starts with an m.  Once this is done and the file is saved you should be able to do `bc listunspent` and the transaction will appear.
+
+pubkey
+cR6PrMEcvT7RTamuW63oNCYc3AD8UznFbBQuPttXoBbuNJfaUiBT
+
+Recieve address
+mhWeyw5kUN71Q1Ys32D2hamYDvwXE5RB2e
+
+# Modified Bitcoin Script
+Although that was alot of fun and a complete pain in the butt, what else can we do with Bitcoin script besides changing from one standard script to another?  Lets experiment a little bit and see what happens.  Instead of just doing a P2PKH lets explore some of the other functions that are available to us in scripting.  Lets do a little simple math maybe 1 + 2 =3. I am going to append this after the OP_EQUALVERIFY.  This will allow me also add another OP_EQUALVERIFY that should allow me to redeem this non-standard script with a standard P2PKH scriptsig. The code will look like the following.
+
+```BASH
+\\Original transaction
+0200000001e42e10de7951a38e78688bce5512ba73f7601c06dea24c042c055d6f04efc8690100000000ffffffff01905f010000000000
+17
+a9 14 aed791c6a028b92d452df8711543f5d5d748d14d 87 
+00000000
+
+\\1+2=3
+0101010293010388
+
+\\Modified transaction
+0200000001e42e10de7951a38e78688bce5512ba73f7601c06dea24c042c055d6f04efc8690100000000ffffffff01905f010000000000
+21
+76 a9 14 aed791c6a028b92d452df8711543f5d5d748d14d 88 01010102930103 88  ac
+00000000
+```
+
+Once we have the bytecode modify, lets use decode and see what we came up with.
+
+```BASH
+> $ bc decoderawtransaction 0200000001e42e10de7951a38e78688bce5512ba73f7601c06dea24c042c055d6f04efc8690100000000ffffffff01905f0100000000002176a91405fc5a6bd7dce4ed2d5a6f9fca06b310d22c2976880101010293010388ac00000000
+{
+  "txid": "7f5b19afde7e314b787fdcbee669c55d6ca0ddcabef6f234103ee0e48d4bd616",
+  "hash": "7f5b19afde7e314b787fdcbee669c55d6ca0ddcabef6f234103ee0e48d4bd616",
+  "version": 2,
+  "size": 93,
+  "vsize": 93,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "69c8ef046f5d052c044ca2de061c60f773ba1255ce8b68788ea35179de102ee4",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00090000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 05fc5a6bd7dce4ed2d5a6f9fca06b310d22c2976 OP_EQUALVERIFY 1 2 OP_ADD 3 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a91405fc5a6bd7dce4ed2d5a6f9fca06b310d22c2976880101010293010388ac",
+        "type": "nonstandard"
+      }
+    }
+  ]
+}
+```
+
+We can see that this is indeed a valid scriptPubKey.  Go ahead sign and send this transaction and then look up the TXID on blockcypher.  You will notice that the output is displayed with 'Unknown script type'.  This means that we are outside of the standard bitcoin transaction types.  If we want to create these types of advanced scripts we will have to use what is known as P2SH.  However, even with P2SH, unless we use a "standard" script within P2SH the wallet will also not recognize the transaction.  This makes it quite difficult to deal with non-standard scripts without creating scripts to interpret the non-standard inputs and create non-standard outputs.
+
+# Create a P2PKH wrapped P2SH transaction
 
 # Tutorial on Advanced Scripting
+
+The things that you can do with advanced scripting are quite extensive.  A very good set of tutorials are available on youtube at the following links.  If you are interested in learning more please go ahead and watch.
+
+Advanced Bitcoin Scripting -- Part 1: Transactions & Multisig
 https://www.youtube.com/watch?v=8FeAXjkmDcQ
+
+Advanced Bitcoin Scripting -- Part 2: SegWit, Consensus, & Trustware
+https://www.youtube.com/watch?v=pQbeBduVQ4I
+
+# Interpretting advanced scripts
+
+The following is an example of an advanced script.  Use btcdeb to decode the transaction.  You can then logically follow and answer the questions on what will happen under different conditions.
+
+```BASH
+btcdeb --txin=01000000015d9ce60782943c18a1ef1579d9bda773c80e0ab199a2c9b588cdfd482796b29e000000004847304402207553fb08bda01fb57d36dcc6c42336af50794972fdbd776e6715afcd5a8339910220710fb92d6be4ceb59a8449cb771df0b84f46d8f727bd86d0ea64a4290acbb46e01feffffff0240420f000000000017a914d5ea95de87cda1820542416554556653527721e687e8a0f629010000001976a914f8887547f9fa7a3c3495784880e9519ea990403288ac65000000 --tx=0100000001ab93dcd1f33ff0d34cf9086b143b1908aae9e99613d4293c5d287da3c9c606ab00000000eb48304502210080a8b1dcbf7d1335c57bf646619e2500233275b9b637e63f3cb36541491b5707022037b2469fc9446c061130641f181d138d2fd863c82fb42059c52728a6e3392b1a01207795c094909e85ccd1f4379a672295147bdbb8fdd6723b54e505def2145f395c512102a34d67615ab535bcbb75fde70c0fbfbf9c948eeb55df403fe0e7044dd55c5ed24c5c76a97263a820c922104042b24a97852bfe674f337558909cb2bcfc901e9d55ed93a1939567878814874f04b19a5b282fe136e01c882c088439b6a181670431de8257b16d14874f04b19a5b282fe136e01c882c088439b6a1816888ac000000000100400f00000000001976a914874f04b19a5b282fe136e01c882c088439b6a18188ac31de8257
+```
+
+
+
+
