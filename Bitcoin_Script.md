@@ -25,7 +25,7 @@ https://github.com/kallewoof/btcdeb
 Before we get into bitcoin script we need to do a brief review on how tokens are moved on chain.  A token is encumbered by a locking script known as a pubKey script which can also be referred to as scriptPubKey.  To move a token, a signature script (scriptSig) must be presented which satisfies the conditions of the locking pubKey script.  Once a proper signature script is presented, the unspent transaction output (UTXO) is consumed with the signature script and one or more new UTXOs are created. These scripts are written using what is known as Bitcoin script and the scripts are evaluated by nodes running the Bitcoin blockchain. When a token is moved the scripts are evaluated in the following way.
 
 ```BASH
-<sigScript><scriptPubKey>
+<sigScript> <scriptPubKey>
 ```  
 
 The Bitcoin interpretor is a stack based language that does not allow for loops and therefore is not Turing complete. The interpreter operates using reverse polish notation in that the operands come before the operator.  So in the simple case of computing 1 + 2, it would be written into the interpreter as 1 2 +. Operators can pop items off the stack as well as push results onto the stack.  Once a bitcoin script is complete it is considered to be valid if the result is greater than or equal to 1. Therefore, if the result is 0, the operation is not valid and the signature script does not get commited to the chain.  If the output is non-zero the chain updates the state according to the outcome of the script.
@@ -106,7 +106,7 @@ You can see that freshly mined Bitcoins were sent to two wallets.  Lets try and 
 ```
 
 
- You can simply replace the txid in the above url to get the same result for any transaction.  Alternating if you are looking for something on the testnet you can use https://api.blockcypher.com/v1/btc/test3/txs/6be71dca3d789d8b7c846a8166138087ce87c1ec1b96b286f7933a85bd378831?includeHex=true .
+ You can simply replace the txid in the above url to get the same result for any transaction.  Alternately if you are looking for something on the testnet you can use https://api.blockcypher.com/v1/btc/test3/txs/6be71dca3d789d8b7c846a8166138087ce87c1ec1b96b286f7933a85bd378831?includeHex=true .
 
 If we inspect this transaction we can see that a coinbase UTXO of 50 BTC was used to send 10 BTC and got 40 BTC in change.  Lets follow the 40 BTC output and validate it with btcdeb.  We will need to collect the raw transaction hex corresponsponding to this 40 BTC.  We can do this by following the (spent) link https://live.blockcypher.com/btc/tx/a16f3ce4dd5deb92d98ef5cf8afeaf0775ebca408f708b2146c4fb42b41e14be/#spentby-f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16-1 and then taking that TXID to lookup the hex of the transaction here. https://api.blockcypher.com/v1/btc/main/txs/a16f3ce4dd5deb92d98ef5cf8afeaf0775ebca408f708b2146c4fb42b41e14be?includeHex=true
 
@@ -309,20 +309,18 @@ script                                                             |            
 
 This evaluates to one again so now we know that the transaction was correct and the script that was used to validate this transaction was indeed a P2PK of the form `<Signature> <Public Key> OP_CHECKSIG`.  We won't have you try and build a P2PK because it would require some other tools and they are not currently very useful because of the introduction of P2PKH. 
 
+***Assignment Deliverable 1:*** Find an early Bitcoin transaction, check the first 50,000 blocks which is P2PK.  Us blockcypher to get the transaction hex, decode that transaction hex into script and create a btcdeb command which results in an output of 01.  The chosen transaction should be different then your friends.  Report the TXID, as well as the btcdeb command and result similar to the transaction example above.
+
 ## Pays To PubKey Hash (P2PKH) script
-P2PKH was introduced because it allows people to not reveal their public key prior to spending an output.  If there ever is a weakness in elliptic curve cryptography and the public keys that are encumbering all the funds are chain are publically known, this could allow anyone that is able to leverage the ECC exploit to move all on chain balances.  By using a hash to encumber funds rather than an public address there would also need to be a compromise to SHA256 before money locked on chain can be moved. Therefore these are currently the most common scripts used in bitcoin today.
+P2PKH was introduced because it allows people to not reveal their public key prior to spending an output.  If there ever is a weakness in elliptic curve cryptography and the public keys that are encumbering all the funds on chain are publically known, this could allow anyone that is able to leverage the ECC exploit to move all on chain balances.  By using a hash to encumber funds rather than an public address there would also need to be a compromise to SHA256 before money locked on chain can be moved. Therefore these are currently the most common scripts used in bitcoin today.
 
-Lets go and look at the simple single input to single ouput transactions that we made in the previous assignment.  The example in the tutorial was TxID 
+Lets go and look at the simple single input to single ouput transactions that we made in the previous assignment.  The example in the tutorial was TxID `afba5550cf1f9957d38bd3704947e745a47861e7fa375cea76638b38537ff545`
 
-btcdeb --tx=020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 --txin=0200000001e675a287b8143df4ab739e469b0aab00adb9ccd55b6846f5399fda64da410fd9000000006b483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01dc868500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
-
-btcdeb --tx=0.08750812:020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 '[OP_DUP OP_HASH160 ca073a588b2ea809fcfe4aae9f89fa73acf41177 OP_EQUALVERIFY OP_CHECKSIG]' 3045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e01 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
-
-
-Before we begin writing our own bitcoin scripts lets look at a couple of examples that exist by using blockcypher. This will make you dig into the component pieces of a transaction more and give you your first example of a successfully running bitcoin transaction script.
+This will make you dig into the component pieces of a transaction more and give you your first example of a successfully running bitcoin transaction script. Looking up this transaction we get the following:
 
 https://api.blockcypher.com/v1/btc/test3/txs/afba5550cf1f9957d38bd3704947e745a47861e7fa375cea76638b38537ff545?includeHex=true
 
+```BASH
 {
   "block_hash": "0000000000000068163f3e1e1932d39d470a9e7417a06d116b091b6f18501fe0",
   "block_height": 1481272,
@@ -371,6 +369,7 @@ https://api.blockcypher.com/v1/btc/test3/txs/afba5550cf1f9957d38bd3704947e745a47
     }
   ]
 }
+```
 
 Unfortunately blockcypher does not show us the interpreted scripts, but we can figure it out pretty easily by hand.  If you go to https://en.bitcoin.it/wiki/Script you will find a list of currently supported as well as deprecated script opcodes.  Opcodes are the commands which are avialable to use in bitcoin script and they will always be 1 hex byte.  So if we look at our locking script for the transaction:
 
@@ -391,8 +390,9 @@ We can start to interpret it by parsing it from left to right.  The first byte i
 OP_DUP OP_HASH160 PUSH(20) ca073a588b2ea809fcfe4aae9f89fa73acf41177 OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-Looking at this we can see that this is an example of a standard P2PKH script.  So lets try and create a signature script which will unlock this transaction and use btcdeb to check it and make sure it works before broadcasting it to the network.
+Looking at this we can see that this is an example of a standard P2PKH script.  So lets try and create a signature script which will unlock this transaction and use btcdeb to check it and make sure it works before broadcasting it to the network. We can find this UTXO in our wallet using `listunspent`, which returns:
 
+```BASH
  {
     "txid": "d90f41da64da9f39f546685bd5ccb9ad00ab0a9b469e73abf43d14b887a275e6",
     "vout": 0,
@@ -405,6 +405,7 @@ Looking at this we can see that this is an example of a standard P2PKH script.  
     "solvable": true,
     "safe": true
   },
+```
 
 To create the signature script we can leverage `createrawtransaction` followed by `signrawtransaction`.  Once the signed transaction is created we can use `decoderawtransaction` to see the transaction that we have created but not yet broadcast.
 
@@ -447,9 +448,10 @@ To create the signature script we can leverage `createrawtransaction` followed b
 
 ```
 
-If you look in the "scriptSig" filed you will find the signature as well as the pubkey which will allow you to unlock and spend the transaction. 
+If you look in the "scriptSig" field you will find the signature as well as the pubkey which will allow you to unlock and spend the transaction. 
 
 The data in this filed can be interpreted as follows:
+
 ```BASH
 <signature> = 3045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb 
 <pubkey> = 038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0
@@ -459,6 +461,7 @@ This should be a valid unlocking script for a P2PKH. The simple way to check thi
 
 ```BASH
 > $ btcdeb --tx=020000000145f57f53388b6376ea5c37fae76178a445e7474970d38bd357991fcf5055baaf000000006b483045022100afe2d4708627948004b00a2c076c13940b614f898a718655ce794a011dd5b912022070eb93341ea04304eaa409533757add60ccf4df44075cd5777b5379f5e6d5b2e0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01cc5f85000000000017a914e995733209fce5e8b54c4e2744aff28015bcd3f98700000000 --txin=0200000001e675a287b8143df4ab739e469b0aab00adb9ccd55b6846f5399fda64da410fd9000000006b483045022100ac7169d5d1359082ca820903d21c969d27d6e9cc8e5adee8a64ecfe90aa7d19f0220131c46e31b36297f94b1163693c55352d0fe457a3b9740b496fd23829a827cbb0121038e21b7eb62fa4412c195c6c5db3ce37943e5b4f77d2ef0a07b32bddcb7fe7ab0ffffffff01dc868500000000001976a914ca073a588b2ea809fcfe4aae9f89fa73acf4117788ac00000000
+
 btcdeb -- type `btcdeb -h` for start up options
 got transaction b3d970bbea3bc92c6b00d7cfdfc447ad35aa14d27b3e699e4b9cbbe2113f53b3:
 CTransaction(hash=b3d970bbea, ver=2, vin.size=1, vout.size=1, nLockTime=0)
@@ -582,6 +585,10 @@ script                                                             |            
 Finally, we have OP_CHECKSIG.  This operation will check and make sure that the signature of the transaction is valid against the public key.  To do this the script behind the scenes needs to compute the transaction hash to enable it to validate the signature.  If for some reason the hash of the tx is different this will return false.
 
 We have now succesfully used btcdeb to check a transaction prior to sending it to the network!
+
+***Assignment Deliverable 2:*** Find an unspent output from your wallet that is encumbered by a P2PKH sigScript.  If you don't have one, create one by creating an address using `bcgetnewaddress "" legacy` and then sending money to this address.  A legacy address will cause bitcoin-cli to send using a P2PKH. Once you have a P2PKH UTXO use bitcoin-cli to create a valid unlocking script.  Check that unlocking script with btcdeb and ensure an result of 01.  Report the TxId of the txin as well as the output from checking your script using btcdeb, similar to the above example.
+
+***Assignment Deliverable 3:*** Use the transaction from deliverable 2, but rather than using `--tx=...` create a bitcoin script in its place which is valid. Check that unlocking script with btcdeb and ensure an result of 01.  Report the TxId of the txin as well as the output from checking your script using btcdeb.
 
 ### Debugging Errors in btcdeb
 
