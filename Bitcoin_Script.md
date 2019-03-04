@@ -648,7 +648,7 @@ Once we have this lets inspect our raw transaction:
 
 ```
 
-To turn this into a P2PKH we will need to do a couple of things.  We will need to modify the scriptPubKey to confirm to the P2PKH standard as well as compute a new MD160 hash.  To do this we will need to open up our wallet.dat file and search for the public key that we are using as the sending address.  We should copy the public key which in this case looks like `cR6PrMEcvT7RTamuW63oNCYc3AD8UznFbBQuPttXoBbuNJfaUiBT`.  If you get a value starting with 0014 you are finding the wrong value.  Once we have the pubkey we will need to find its MD160 hash which we can do quicly and conveniently using a quick script in btcdeb.
+To turn this into a P2PKH we will need to do a couple of things.  We will need to modify the scriptPubKey to confirm to the P2PKH standard as well as compute a new MD160 hash.  To do this we will need to open up our wallet.dat file and search for the public key that we are using as the sending address.  We should copy the public key which in this case looks like `cR6PrMEcvT7RTamuW63oNCYc3AD8UznFbBQuPttXoBbuNJfaUiBT`.  If you get a value starting with `0014` you are finding the wrong value.  Once we have the pubkey we will need to find its MD160 hash which we can do quicly and conveniently using a quick script in btcdeb.
 
 ```BASH
 > $ btcdeb '[cR6PrMEcvT7RTamuW63oNCYc3AD8UznFbBQuPttXoBbuNJfaUiBT OP_HASH160]'
@@ -708,6 +708,8 @@ ac     //OP_EQUAL
 00000000 //TIMELOCK
 ```
 
+Note: the length of the scriptPubKey changed from 17 to 19 because two bytes were added.  Make sure to update the length to get a valid script. 
+
 I can then inspect my new transaction using decode as below.
 
 ```BASH
@@ -748,13 +750,18 @@ I can then inspect my new transaction using decode as below.
 }
 ```
 
-I can see this is a valid transaction and it is interpreted correctly.  Therefore lets go ahead and sign and send it. I end up getting the TxID `d575e3ec984fd6b777a26944a10ae174e0a1e76c0087a82aae0d46057be322c9`.  I can go ahead and look it up on blockcypher.  Great, but there is a problem.  This transaction will not show up in your wallet.   The wallet software has not recorded a P2PKH key in your wallet against this public key, only a P2SH key.  Therefore, we will need to find the pubkey in your wallet.dat file and then remove the address that starts with a 2 and replace it with recieve address that is displayed on blockcypher that starts with an m.  Once this is done and the file is saved you should be able to do `bc listunspent` and the transaction will appear.
+I can see this is a valid transaction and it is interpreted correctly.  Therefore lets go ahead and sign and send it. I end up getting the TxID `d575e3ec984fd6b777a26944a10ae174e0a1e76c0087a82aae0d46057be322c9`.  I can go ahead and look it up on blockcypher.  Great, but there is a problem.  This transaction will not show up in your wallet.   The wallet software has not recorded a P2PKH key in your wallet against this public key, only a P2SH redeem script hash.  Therefore, we will need to find the pubkey in your wallet.dat file and then remove the address that starts with a 2 and replace it with recieve address that is displayed on blockcypher that starts with an m.  Once this is done and the file is saved you should be able to do `bc listunspent` and the transaction will appear.
 
+Examples of wallet data:
+```BASH
 pubkey
 cR6PrMEcvT7RTamuW63oNCYc3AD8UznFbBQuPttXoBbuNJfaUiBT
 
 Recieve address
 mhWeyw5kUN71Q1Ys32D2hamYDvwXE5RB2e
+```
+
+***Assignment Deliverable 4:*** Create a P2SH transaction without broadcasting it.  Report the decoded transaction.  Modify the transaction hex to be a P2PKH transaction. Broadcast the transaction and report the decoded transaction and the transaction ID. Succesfully, move the output of this transaction using bitcoin-cli and report the TxID.
 
 # Modified Bitcoin Script
 Although that was alot of fun and a complete pain in the butt, what else can we do with Bitcoin script besides changing from one standard script to another?  Lets experiment a little bit and see what happens.  Instead of just doing a P2PKH lets explore some of the other functions that are available to us in scripting.  Lets do a little simple math maybe 1 + 2 =3. I am going to append this after the OP_EQUALVERIFY.  This will allow me also add another OP_EQUALVERIFY that should allow me to redeem this non-standard script with a standard P2PKH scriptsig. The code will look like the following.
@@ -812,9 +819,15 @@ Once we have the bytecode modify, lets use decode and see what we came up with.
 }
 ```
 
-We can see that this is indeed a valid scriptPubKey.  Go ahead sign and send this transaction and then look up the TXID on blockcypher.  You will notice that the output is displayed with 'Unknown script type'.  This means that we are outside of the standard bitcoin transaction types.  If we want to create these types of advanced scripts we will have to use what is known as P2SH.  However, even with P2SH, unless we use a "standard" script within P2SH the wallet will also not recognize the transaction.  This makes it quite difficult to deal with non-standard scripts without creating scripts to interpret the non-standard inputs and create non-standard outputs.
+We can see that this is indeed a valid scriptPubKey.  Go ahead sign and send this transaction and then look up the TXID on blockcypher.  You will notice that the output is displayed with 'Unknown script type'.  This means that we are outside of the standard bitcoin transaction types.  If we want to create these types of advanced scripts we will have to use what is known as P2SH.  However, even with P2SH, unless we use a "standard" script within P2SH the wallet will also not recognize the transaction.  This makes it quite difficult to deal with non-standard scripts without creating custom wallet code to interpret the non-standard inputs and create non-standard outputs.
+
+***Assignment Deliverable 5:*** Create a P2PKH transaction that has a math equation similar to the above that uses at least 5 operations and evaluates to 01. Use decoderawtransaction and report the output.  Broadcast the transaction and report the TxId.
 
 # Create a P2PKH wrapped P2SH transaction
+
+Unfortunately, native bitcoin script has a couple of drawbacks.  First, it adds alot of bytes and code to the blockchain.  Second, if I want to use this encumbrance I will need to communicate the script to all senders before they send a transaction.  Lets say I want to use this for accounts recievables which is a multisig because I need this for corporate accounting controls.  Using native Bitcoin script would be very difficult because I would need each one of my customers to use a long complex script when sending me money.  Additionally, my customers would have to bear the cost of sending the transaction with a more costly script.  A solution to this problem is to use what are known as P2SH scripts.  This is another type of encumbrance that uses the hash of my script to encumber funds.  This allows complex scripts to be created which don't need to be stored on chain with every incoming transaction.  Allows simple addresses to be created so the sender can send money without needing to know the complex script.  This introduces a new concept known as a redeem script.
+
+
 
 # Tutorial on Advanced Scripting
 
