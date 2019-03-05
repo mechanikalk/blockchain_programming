@@ -825,9 +825,24 @@ We can see that this is indeed a valid scriptPubKey.  Go ahead sign and send thi
 
 # Create a P2PKH wrapped P2SH transaction
 
-Unfortunately, native bitcoin script has a couple of drawbacks.  First, it adds alot of bytes and code to the blockchain.  Second, if I want to use this encumbrance I will need to communicate the script to all senders before they send a transaction.  Lets say I want to use this for accounts recievables which is a multisig because I need this for corporate accounting controls.  Using native Bitcoin script would be very difficult because I would need each one of my customers to use a long complex script when sending me money.  Additionally, my customers would have to bear the cost of sending the transaction with a more costly script.  A solution to this problem is to use what are known as P2SH scripts.  This is another type of encumbrance that uses the hash of my script to encumber funds.  This allows complex scripts to be created which don't need to be stored on chain with every incoming transaction.  Allows simple addresses to be created so the sender can send money without needing to know the complex script.  This introduces a new concept known as a redeem script.
+Unfortunately, native bitcoin script has a couple of drawbacks.  First, it adds alot of bytes and code to the blockchain.  Second, if I want to use this encumbrance I will need to communicate the script to all senders before they send a transaction.  Lets say I want to use this for accounts recievables which is a multisig because I need this for corporate accounting controls.  Using native Bitcoin script would be very difficult because I would need each one of my customers to use a long complex script when sending me money.  Additionally, my customers would have to bear the cost of sending the transaction with a more costly script.  
 
+A solution to this problem is to use what are known as P2SH scripts.  This is another type of encumbrance that uses the hash of my script to encumber funds.  This allows complex scripts to be created which don't need to be stored on chain with every incoming transaction.  Allows simple addresses to be created so the sender can send money without needing to know the complex script.  This introduces a new concept known as a redeem script.
 
+The format of a P2SH signature and pubkey script are as follows:
+
+```BASH
+Signature Script:
+<sigScript> <publicKey> <RedeemScript>
+
+Pubkey Script:
+OP_HASH160 <RedeemScriptHash> OP_EQUAL
+```
+These types of transaction are incredably easy to make because the are the default type of transaction made by bitcoin-cli when using modern addresses.
+
+Although P2SH has many advantages, one of the disadvanteges is that if you loose the redeem script, you will not be able to spend the money locked by the P2SH because you will not have the redeem script which corresponds the redeem script hash.  Your current wallet.dat file assumes that you will be making a number of P2SH transactions and the script (segwit) format is stored next to your public keys as `0014...`.
+
+***Assignment Deliverable 6:*** Create a P2PKH wrapped P2SH transaction using bitcoin-cli. Report the TxID as well as the decoded transaction.
 
 # Tutorial on Advanced Scripting
 
@@ -841,12 +856,12 @@ https://www.youtube.com/watch?v=pQbeBduVQ4I
 
 # Interpretting advanced scripts
 
-The following is an example of an advanced script.  Use btcdeb to decode the transaction.  You can then logically follow and answer the questions on what will happen under different conditions.
+The following is an example of an advanced script.  Use btcdeb to decode the transaction.  You can then logically follow and answer the questions on what will happen under different conditions. This is an example of an HTLC script.
 
 ```BASH
-btcdeb --txin=01000000015d9ce60782943c18a1ef1579d9bda773c80e0ab199a2c9b588cdfd482796b29e000000004847304402207553fb08bda01fb57d36dcc6c42336af50794972fdbd776e6715afcd5a8339910220710fb92d6be4ceb59a8449cb771df0b84f46d8f727bd86d0ea64a4290acbb46e01feffffff0240420f000000000017a914d5ea95de87cda1820542416554556653527721e687e8a0f629010000001976a914f8887547f9fa7a3c3495784880e9519ea990403288ac65000000 --tx=0100000001ab93dcd1f33ff0d34cf9086b143b1908aae9e99613d4293c5d287da3c9c606ab00000000eb48304502210080a8b1dcbf7d1335c57bf646619e2500233275b9b637e63f3cb36541491b5707022037b2469fc9446c061130641f181d138d2fd863c82fb42059c52728a6e3392b1a01207795c094909e85ccd1f4379a672295147bdbb8fdd6723b54e505def2145f395c512102a34d67615ab535bcbb75fde70c0fbfbf9c948eeb55df403fe0e7044dd55c5ed24c5c76a97263a820c922104042b24a97852bfe674f337558909cb2bcfc901e9d55ed93a1939567878814874f04b19a5b282fe136e01c882c088439b6a181670431de8257b16d14874f04b19a5b282fe136e01c882c088439b6a1816888ac000000000100400f00000000001976a914874f04b19a5b282fe136e01c882c088439b6a18188ac31de8257
+> $ btcdeb --tx=010000000188b88ff287a8b5ea94002b4cba315d9d335f4bee94588e93cdc84b8c5584fb4c01000000f0483045022100c88bceb5ee4063290e44a43710426df5f2301764eb8aa92e6d86e97df3600bfb02203a888e22924aef52062c283f494f2ff2cf9f1252a78d8e2b03bd872fc0d186cd012103b9b6288ebb8478289f1f47e883e3e9e0246ee34b7ae33836f8e747fc3b08b0e0202ee0c044003ac63d6d6435d69a67b30e37a6e323b1d3d8874e8ad39ca5e92476514c616382012088a820c010e3284a11d35dcaad6bf019fb10767a91262ab78a78d6e9727dfd59a4248d8876a914b36ec08af2c6651fafe394ad01cbd242c6b272ff670431de8257b17576a914b36ec08af2c6651fafe394ad01cbd242c6b272ff6888ac0000000001d0240000000000001976a914b36ec08af2c6651fafe394ad01cbd242c6b272ff88ac00000000 --txin=0100000001e0875ed8db541b6df81f2c5e87ec073f97174d7d37a57830a46707fda4692826000000006a473044022023af404b65bcad08a44f504632e57473b354b34b2f462cddde330c7a80f55f2f02206757088b38547608467663edae5a18de975780527c8f57fd92cda084f3cd37e4012102d1c1daaa7eeca24c8ee1566d3904701bcc8e0a4518a417de3b1f54fbb808468dfeffffff0250351c00000000001976a91491942755e73ed203d646fbc270b39aeafc3db9f188ac102700000000000017a914e6f04168a21544f068595e94cef4e16fe3f4b98d8742030000
 ```
 
-
+***Assignment Deliverable 7:*** Given the example transaction above, explain what is happening in the context of an HTLC script which is used to open a payment channel.
 
 
