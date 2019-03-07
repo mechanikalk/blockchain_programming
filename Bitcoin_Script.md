@@ -588,7 +588,7 @@ We have now succesfully used btcdeb to check a transaction prior to sending it t
 
 ***Assignment Deliverable 2:*** Find an unspent output from your wallet that is encumbered by a P2PKH sigScript.  If you don't have one, create one by creating an address using `bcgetnewaddress "" legacy` and then sending money to this address.  A legacy address will cause bitcoin-cli to send using a P2PKH. Once you have a P2PKH UTXO use bitcoin-cli to create a valid unlocking script.  Check that unlocking script with btcdeb and ensure an result of 01.  Report the TxId of the txin as well as the output from checking your script using btcdeb, similar to the above example.
 
-***Assignment Deliverable 3:*** Use the transaction from deliverable 2, but rather than using `--tx=...` create a bitcoin script in its place which is valid. Check that unlocking script with btcdeb and ensure an result of 01.  Report the TxId of the txin as well as the output from checking your script using btcdeb.
+***Assignment Deliverable 3:*** Use the transaction from deliverable 2, but rather than using `--txin=...hexcode` create a bitcoin script in its place which is valid. Check that unlocking script with btcdeb and ensure an result of 01.  Report the TxId of the txin as well as the output from checking your script using btcdeb.
 
 ### Debugging Errors in btcdeb
 
