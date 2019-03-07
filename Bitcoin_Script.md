@@ -761,7 +761,7 @@ Recieve address
 mhWeyw5kUN71Q1Ys32D2hamYDvwXE5RB2e
 ```
 
-***Assignment Deliverable 4:*** Create a P2SH transaction without broadcasting it.  Report the decoded transaction.  Modify the transaction hex to be a P2PKH transaction. Broadcast the transaction and report the decoded transaction and the transaction ID. Succesfully, move the output of this transaction using bitcoin-cli and report the TxID.
+***Assignment Deliverable 4:*** Create a P2SH transaction without broadcasting it.  Report the decoded transaction.  Modify the transaction hex to be a P2PKH transaction. Broadcast the transaction and report the decoded transaction and the transaction ID.
 
 # Modified Bitcoin Script
 Although that was alot of fun and a complete pain in the butt, what else can we do with Bitcoin script besides changing from one standard script to another?  Lets experiment a little bit and see what happens.  Instead of just doing a P2PKH lets explore some of the other functions that are available to us in scripting.  Lets do a little simple math maybe 1 + 2 =3. I am going to append this after the OP_EQUALVERIFY.  This will allow me also add another OP_EQUALVERIFY that should allow me to redeem this non-standard script with a standard P2PKH scriptsig. The code will look like the following.
